@@ -1,0 +1,17 @@
+{
+    "env": "development",
+    "dbConfig": {
+        "host": "localhost",
+        "database": "friendzone",
+        "port": 3306
+    },
+    "secretKey": "secretKey",
+    "log": {
+        "format": "dev",
+        "dir": "../logs"
+    },
+    "cors": {
+        "origin": true,
+        "credentials": true
+    }
+}
