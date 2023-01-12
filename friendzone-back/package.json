@@ -4,6 +4,7 @@
    "description": "api friendzone",
    "scripts": {
       "start": "ts-node server.ts",
+      "stop": "cross-env NODE_ENV=development ts-node server.stop.ts",
       "dev": "cross-env NODE_ENV=development nodemon",
       "build": "tsc && npx tsc-alias",
       "test": "jest --forceExit --detectOpenHandles",
