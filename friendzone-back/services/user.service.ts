@@ -1,6 +1,6 @@
 import {AppDataSource} from "../src/data-source";
 import {User} from "../src/entity/User";
-import {Request, Response} from "express";
+import {JwtService} from "./jwt.service";
 
 class UserService{
     
@@ -19,8 +19,14 @@ class UserService{
     static async signUp(newUser: User) {
         try {
             console.log(newUser);
-            await AppDataSource.manager.save(newUser);
+            const jwtService= new JwtService();
+            await AppDataSource.manager.save(newUser).then(
+                (user) => {
+                    newUser.token = jwtService.sign({email: user.email, pseudo: user.pseudo});
+                }
+            );
             console.log("Saved a new user with id: " + newUser.id);
+            //Create jwt token
             return newUser;
         } catch (e) {
             console.log("error");
