@@ -2,9 +2,12 @@ import { Request, Response, NextFunction } from 'express';
 import { HttpException } from '../exceptions/HttpException';
 import { newUser } from '../interfaces/users.interface';
 import {User} from "../src/entity/User";
-
+import bcrypt from 'bcrypt';
 export class UsersDto {
     
+    hashPassword(password: string) {
+        return bcrypt.hash(password, 10);
+    }
     checkUserBody(body) {
         if (!body) throw new HttpException(400, "les champs ne sont pas renseignés");
         if (!body.name || !isNaN(body.name)) throw new HttpException(400, 'erreur pas de name');
@@ -33,7 +36,7 @@ export class UsersDto {
             data.postal_code = req.body.postal_code;
             data.phone_number = req.body.phone_number;
             data.profile_picture = req.body.profile_picture;
-            data.sexe = req.body.sexe;
+            data.sex = req.body.sexe;
             data.is_verified = req.body.is_verified;
             data.role = req.body.role ? req.body.role : 'user';
 
