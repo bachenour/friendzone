@@ -3,7 +3,7 @@ import UserService from "../services/user.service";
 import {User} from "../src/entity/User";
 import {HttpException} from "../exceptions/HttpException";
 
-class UsersController{
+export class UsersController{
 
     public signUp = async (req: Request, res: Response) => {
         try {
