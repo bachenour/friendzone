@@ -48,6 +48,8 @@ export class User {
 
     @Column("varchar", { length: 45 , name: "role", nullable: true })
     role: string
+    
+    token: string
 
     @OneToMany(() => Post, post => post.users_id)
     posts: Post[]
