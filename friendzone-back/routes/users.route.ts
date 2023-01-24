@@ -2,10 +2,12 @@ import {Routes} from "../interfaces/routes.interface";
 import {Router} from "express";
 import UsersController from "../controllers/users.controller";
 import {UsersDto} from "../dto/users.dto";
+import {JwtService} from "../services/jwt.service";
 
 
 const usersController = new UsersController();
 const usersDto = new UsersDto();
+const authMiddleware = new JwtService();
 
 export class UsersRoute implements Routes {
   public path = '/users';
@@ -17,7 +19,7 @@ export class UsersRoute implements Routes {
 
   private initializeRoutes() {
       this.router.post(`${this.path}/signup`, usersDto.signUp, usersController.signUp);
-      this.router.put(`${this.path}/:id`, usersController.updateUserData);
+      this.router.put(`${this.path}/:id`, authMiddleware.verify, usersController.updateUserData);
 
       /*this.router.get(`${this.path}`, this.usersController.getUsers);
       this.router.post(`${this.path}`, this.usersController.createUser);
