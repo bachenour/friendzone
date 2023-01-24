@@ -40,7 +40,7 @@ export class User {
     profile_picture: string
 
     @Column("varchar", { length: 6 , name: "sexe", nullable: true })
-    sexe: string
+    sex: string
 
     @Column("boolean", { name: "is_verified", nullable: true })
     is_verified: boolean
