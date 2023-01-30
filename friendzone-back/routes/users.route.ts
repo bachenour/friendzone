@@ -3,6 +3,7 @@ import {Router} from "express";
 import UsersController from "../controllers/users.controller";
 import {UsersDto} from "../dto/users.dto";
 import {JwtService} from "../services/jwt.service";
+import bcrypt from 'bcrypt';
 
 
 const usersController = new UsersController();
@@ -19,6 +20,7 @@ export class UsersRoute implements Routes {
 
   private initializeRoutes() {
       this.router.post(`${this.path}/signup`, usersDto.signUp, usersController.signUp);
+      this.router.post(`${this.path}/signin`, usersDto.signIn, usersController.signIn);
       this.router.put(`${this.path}/:id`, authMiddleware.verify, usersController.updateUserData);
 
       /*this.router.get(`${this.path}`, this.usersController.getUsers);

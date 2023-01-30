@@ -14,6 +14,15 @@ export class UsersController{
             return e.status(404).json({ message: e.message });
         }
     }
+    public signIn = async (req: Request, res: Response) => {
+        try {
+            const data = req.body;
+            const user = await UserService.signIn(data);
+            res.json({ user, message: 'success' });
+        } catch (e) {
+            return e.status(404).json({ message: e.message });
+        }
+    }
     
     public updateUserData = async (req: Request , res: Response) => {
         try {
