@@ -16,7 +16,7 @@ export class User {
     @Column("varchar", { length: 56 , name: "email", nullable: false })
     email: string
 
-    @Column("varchar", { length: 46 , name: "password", nullable: true })
+    @Column("varchar", { length: 128 , name: "password", nullable: true })
     password: string
 
     @Column("int", { name: "age", nullable: false })

@@ -1,12 +1,14 @@
-import { Request, Response, NextFunction } from 'express';
-import { HttpException } from '../exceptions/HttpException';
-import { newUser } from '../interfaces/users.interface';
+import {NextFunction, Request, Response} from 'express';
+import {HttpException} from '../exceptions/HttpException';
 import {User} from "../src/entity/User";
-import bcrypt from 'bcrypt';
+import * as bcrypt from 'bcrypt';
+
 export class UsersDto {
     
+    //hash password using bcrypt
     hashPassword(password: string) {
-        return bcrypt.hash(password, 10);
+        const salt = bcrypt.genSaltSync(10);
+        return bcrypt.hashSync(password, salt);
     }
     checkUserBody(body) {
         if (!body) throw new HttpException(400, "les champs ne sont pas renseignés");
@@ -20,7 +22,23 @@ export class UsersDto {
         
         return true;
     }
-    signUp = (req: Request, res: Response, next: NextFunction) => {
+
+    checkUserLogin(body) {
+        if (!body) throw new HttpException(400, "les champs ne sont pas renseignés");
+        if (!body.email || !isNaN(body.email)) throw new HttpException(400, "erreur pas d'email");
+        if (!body.password) throw new HttpException(400, 'erreur pas de mot de passe');
+        return true;
+    }
+
+    signIn = (req: Request, res: Response, next: NextFunction) => {
+        try {
+            this.checkUserLogin(req.body);
+            next();
+        } catch (e) {
+            next(e);
+        }
+    }
+    signUp = async (req: Request, res: Response, next: NextFunction) => {
         try {
             this.checkUserBody(req.body)
 
@@ -28,7 +46,7 @@ export class UsersDto {
             data.name = req.body.name;
             data.full_name = req.body.full_name;
             data.email = req.body.email;
-            data.password = req.body.password;
+            data.password = this.hashPassword(req.body.password);
             data.age = req.body.age;
             data.pseudo = req.body.pseudo;
             data.user_address = req.body.user_address;
@@ -42,8 +60,9 @@ export class UsersDto {
 
             req.body = data;
             next();
-        }catch (e) {
+        } catch (e) {
             next(e);
         }
     }
+    
 }
