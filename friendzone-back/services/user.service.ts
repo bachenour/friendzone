@@ -3,6 +3,19 @@ import {User} from "../src/entity/User";
 import {Request, Response} from "express";
 
 class UserService{
+    
+    static async getUserByEmail(email: any) {
+        try{
+            console.log(email);
+            const user = await  AppDataSource.manager.findBy(User, {email: email});
+            console.log(user);
+            return user;
+        }
+        catch(e){
+            console.log("error");
+            return e;
+        }
+    }
     static async signUp(newUser: User) {
         try {
             console.log(newUser);
@@ -25,5 +38,15 @@ class UserService{
             return e;
         }
     }
+    
+    static async deleteUserById(id: any) {
+        try {
+            await AppDataSource.manager.delete(User, id);
+            console.log("Deleted a user with id: " + id);
+            return id;
+        } catch (e) {
+            return e;
+        }
+    }   
 }
 export default UserService;
