@@ -16,11 +16,9 @@ export class PostsRoute implements Routes {
 
     private initializeRoutes() {
         this.router.post(`${this.path}/addPost`, postsDto.addPost, postControl.addPost);
+        // this.router.get(`${this.path}/getPosts`, postControl.getPosts);
         this.router.get(`${this.path}/:id`, postsDto.findPostByUserId, postControl.getPostsByUserId);
         this.router.put(`${this.path}/:id`, postControl.updatePost);
         this.router.delete(`${this.path}/:id`, postControl.deletePostById);
-
-        /*this.router.get(`${this.path}`, postControl.getPosts);
-        */
     }
 }
