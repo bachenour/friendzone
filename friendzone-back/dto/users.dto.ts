@@ -36,7 +36,7 @@ export class UsersDto {
             data.postal_code = req.body.postal_code;
             data.phone_number = req.body.phone_number;
             data.profile_picture = req.body.profile_picture;
-            data.sex = req.body.sexe;
+            data.sex = req.body.sex;
             data.is_verified = req.body.is_verified;
             data.role = req.body.role ? req.body.role : 'user';
 

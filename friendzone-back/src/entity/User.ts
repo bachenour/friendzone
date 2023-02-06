@@ -40,7 +40,7 @@ export class User {
     @Column("varchar", { length: 256 , name: "profile_picture", nullable: true })
     profile_picture: string
 
-    @Column("varchar", { length: 6 , name: "sexe", nullable: true })
+    @Column("varchar", { length: 6 , name: "sex", nullable: true })
     sex: string
 
     @Column("boolean", { name: "is_verified", nullable: true })
