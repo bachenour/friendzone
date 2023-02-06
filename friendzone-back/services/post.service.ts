@@ -4,13 +4,17 @@ import {Post} from "../src/entity/Post";
 class PostService {
     static async addPost(newPost: Post) {
         try {
-            await AppDataSource.manager.save(newPost);
-            return newPost;
+            const isPostExist = await AppDataSource.manager.findOne(Post, {where: {title: newPost.title, content: newPost.content}});
+            if (!isPostExist) {
+                await AppDataSource.manager.save(newPost);
+                return {newPost, message: 'Post added'};
+            } else {
+                return {error: 'Post already exist'};
+            }
         } catch (e) {
             return e;
         }
     }
-
     static async getPostsByUserId(userId: any) {
         try {
             return await AppDataSource.manager.findBy(Post,  {users_id: userId})
