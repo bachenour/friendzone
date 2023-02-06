@@ -1,6 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
 import { HttpException } from '../exceptions/HttpException';
 import {Post} from "../src/entity/Post";
+import {AppDataSource} from "../src/data-source";
+import {User} from "../src/entity/User";
 
 export class PostDto {
     addPost = (req: Request, res: Response, next: NextFunction) => {
@@ -13,11 +15,26 @@ export class PostDto {
             data.title = req.body.title;
             data.content = req.body.content;
             data.creationDate = req.body.creationDate;
-            data.users_id = req.body.user_id;
-
-            req.body = data;
-            next();
+            AppDataSource.manager.findOne(User, {where: {id: req.body.users_id}}).then((user) => {
+                data.users_id = user;
+                req.body = data;
+                next();
+            });
         }catch (e) {
+            next(e);
+        }
+    }
+
+    findPostByUserId = (req: Request, res: Response, next: NextFunction) => {
+        try {
+            if (!req.params.id) throw new HttpException(400, 'erreur pas d\'id');
+
+            let id = parseInt(req.params.id);
+            AppDataSource.manager.findOne(User, {where: {id: id}}).then((user) => {
+                req.body = user;
+                next();
+            });
+            }catch (e) {
             next(e);
         }
     }

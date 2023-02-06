@@ -1,4 +1,4 @@
-import {Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, JoinColumn, OneToOne} from "typeorm"
+import {Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, JoinColumn, ManyToOne} from "typeorm"
 import {User} from "./User";
 
 @Entity("posts")
@@ -16,7 +16,7 @@ export class Post {
     @CreateDateColumn()
     creationDate: Date
 
-    @OneToOne(() => User)
-    @JoinColumn()
-    users_id: number
+    @ManyToOne(() => User, user => user.posts)
+    @JoinColumn({name:"users_id"})
+    users_id: User
 }
