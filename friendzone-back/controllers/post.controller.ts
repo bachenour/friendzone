@@ -8,23 +8,30 @@ class PostController {
         try {
             const data: Post = req.body;
             const post = await PostService.addPost(data);
-            console.log(data);
             res.json({ post, message: 'Publication saved' });
-        } catch (e) {
-            return e;
+        } catch (error) {
+            return error.status(404).json({ message: error.message });
         }
     };
     public getPostsByUserId = async (req: Request, res: Response) => {
         try {
             const post = new Post();
             post.users_id = req.body;
-
             const find = await PostService.getPostsByUserId(post);
             res.json ({find, message: 'Le voici'})
-        }catch (e) {
-            return e;
+        }catch (error) {
+            return error.status(404).json({ message: error.message });
         }
     };
+    public updatePost = async (req: Request , res: Response) => {
+        try {
+            const data: Post = req.body;
+            const postToUpdate = await PostService.updatePost(req.params.id, data);
+            res.json({ postToUpdate, message: 'La publication a bien été mise à jour' });
+        } catch (error) {
+            return error.status(404).json({ message: error.message });
+        }
+    }
 
     public deletePostById = async (req: Request, res: Response, next: NextFunction) => {
         try {
@@ -32,7 +39,7 @@ class PostController {
             const deletePost = await PostService.deletePostById(postId);
             res.json({ deletePost, message: 'La publication a bien été supprimée' });
         } catch (error) {
-            next(error);
+            return error.status(404).json({ message: error.message });
         }
     };
 }
