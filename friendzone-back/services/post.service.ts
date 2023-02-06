@@ -1,6 +1,5 @@
 import {AppDataSource} from "../src/data-source";
 import {Post} from "../src/entity/Post";
-// import {delete} from "pm2";
 
 class PostService {
     static async addPost(newPost: Post) {
@@ -15,6 +14,15 @@ class PostService {
         try {
             const postsToFind = await AppDataSource.manager.find(Post, {where: {users_id: userId.id}});
             return postsToFind;
+        } catch (e) {
+            return e;
+        }
+    }
+
+    static async updatePost(id: any, postData: Post ) {
+        try {
+            await AppDataSource.manager.update(Post, id, postData);
+            return postData;
         } catch (e) {
             return e;
         }
