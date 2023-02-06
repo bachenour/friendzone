@@ -8,12 +8,14 @@ class PostController {
         try {
             const data: Post = req.body;
             const post = await PostService.addPost(data);
-            res.json({ post, message: 'Publication saved' });
-        } catch (error) {
-            return error.status(404).json({ message: error.message });
+            if (post.error) {
+                res.status(400).json({ message: post.error });
+            }
+            res.json({post});
+        } catch (e) {
+            return e;
         }
     };
-
     public getPostsByUserId = async (req: Request, res: Response) => {
         try {
             const posts = await PostService.getPostsByUserId(req.body);
