@@ -15,6 +15,15 @@ class PostService {
             return e;
         }
     }
+
+    static async getposts() {
+        try {
+            return await AppDataSource.manager.find(Post);
+        } catch (e) {
+            return e;
+        }
+    }
+
     static async getPostsByUserId(userId: any) {
         try {
             return await AppDataSource.manager.findBy(Post,  {users_id: userId})
