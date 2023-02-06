@@ -3,7 +3,6 @@ import {Router} from 'express';
 import PostController from "../controllers/post.controller";
 import {PostDto} from "../dto/post.dto";
 
-
 const postControl = new PostController();
 const postsDto = new PostDto();
 
@@ -17,7 +16,8 @@ export class PostsRoute implements Routes {
 
     private initializeRoutes() {
         this.router.post(`${this.path}/addPost`, postsDto.addPost, postControl.addPost);
-        // this.router.delete(`${this.path}/deletePost`, this.postControl.deletePost);
+        this.router.get(`${this.path}/:id`, postControl.getPostsByUserId);
+        this.router.delete(`${this.path}/:id`, postControl.deletePostById);
 
         /*this.router.get(`${this.path}`, this.postControl.getPosts);
         this.router.get(`${this.path}/:id`, this.postControl.getPostById);
