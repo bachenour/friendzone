@@ -16,7 +16,7 @@ export class User {
     @Column("varchar", { length: 56 , name: "email", nullable: false, unique: true })
     email: string
 
-    @Column("varchar", { length: 128 , name: "password", nullable: true })
+    @Column("varchar", { length: 128 , name: "password", nullable: false })
     password: string
 
     @Column("int", { name: "age", nullable: false })
@@ -43,7 +43,7 @@ export class User {
     @Column("varchar", { length: 6 , name: "sex", nullable: true })
     sex: string
 
-    @Column("boolean", { name: "is_verified", nullable: true })
+    @Column("boolean", { name: "is_verified", nullable: true, default: () => "'0'" })
     is_verified: boolean
 
     @Column("varchar", { length: 45 , name: "role", nullable: true })
