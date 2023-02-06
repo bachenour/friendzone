@@ -16,6 +16,16 @@ class PostController {
             return e;
         }
     };
+
+    public getPosts = async (req: Request, res: Response) => {
+        try {
+            const posts = await PostService.getposts();
+            res.json({ posts, message: 'Success' });
+        }catch (error) {
+            return error.status(404).json({ message: error.message });
+        }
+    }
+
     public getPostsByUserId = async (req: Request, res: Response) => {
         try {
             const posts = await PostService.getPostsByUserId(req.body);
