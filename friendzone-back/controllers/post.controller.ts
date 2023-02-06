@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from 'express';
+import {Request, Response } from 'express';
 import PostService from "../services/post.service";
 import {Post} from "../src/entity/Post";
 
@@ -13,16 +13,16 @@ class PostController {
             return error.status(404).json({ message: error.message });
         }
     };
+
     public getPostsByUserId = async (req: Request, res: Response) => {
         try {
-            const post = new Post();
-            post.users_id = req.body;
-            const find = await PostService.getPostsByUserId(post);
-            res.json ({find, message: 'Le voici'})
+            const posts = await PostService.getPostsByUserId(req.body);
+            res.json({ posts, message: 'Success' });
         }catch (error) {
             return error.status(404).json({ message: error.message });
         }
-    };
+    }
+
     public updatePost = async (req: Request , res: Response) => {
         try {
             const data: Post = req.body;
@@ -33,7 +33,7 @@ class PostController {
         }
     }
 
-    public deletePostById = async (req: Request, res: Response, next: NextFunction) => {
+    public deletePostById = async (req: Request, res: Response) => {
         try {
             const postId = req.params.id;
             const deletePost = await PostService.deletePostById(postId);

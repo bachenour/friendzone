@@ -10,10 +10,10 @@ class PostService {
             return e;
         }
     }
+
     static async getPostsByUserId(userId: any) {
         try {
-            const postsToFind = await AppDataSource.manager.find(Post, {where: {users_id: userId.id}});
-            return postsToFind;
+            return await AppDataSource.manager.findBy(Post,  {users_id: userId})
         } catch (e) {
             return e;
         }
@@ -30,7 +30,7 @@ class PostService {
 
     static async deletePostById(postId: any) {
         try {
-            const postToDelete = await AppDataSource.manager.findOne(Post, {where: {id: postId.id}});
+            const postToDelete = await AppDataSource.manager.findOne(Post, {where: {id: postId}});
             await AppDataSource.manager.remove(postToDelete);
             return postToDelete;
         } catch (e) {
