@@ -19,5 +19,6 @@ export class CategoryRoute implements Routes {
         this.router.get(`${this.path}/getCategories`, categoryControl.getCategories);
         this.router.put(`${this.path}/:id`, categoryControl.updateCategory);
         this.router.delete(`${this.path}/:id`, categoryControl.deleteCategoryById);
+        this.router.post(`${this.path}/script/addCategory`, categoryControl.scriptAddCategory);
     }
 }

@@ -5,7 +5,7 @@ class CategoryService{
 
     static async addCategory (newCategory: Category) {
         try {
-            const isCategoryExist = await AppDataSource.manager.findOne(Category, {where: {name: newCategory.name}});
+            const isCategoryExist = await AppDataSource.manager.findOne(Category, {where: {name: newCategory.name}}).then((category) => { return !!category;});
             if (!isCategoryExist) {
                 await AppDataSource.manager.save(newCategory);
                 return {newCategory, message: 'Category added'};
