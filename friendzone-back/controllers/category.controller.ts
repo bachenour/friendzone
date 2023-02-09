@@ -44,6 +44,20 @@ class CategoryController {
             return error.status(404).json({ message: error.message });
         }
     }
+    public scriptAddCategory = async (req: Request, res: Response) => {
+        try {
+            const category = ["Jeux de tir", "Soirée dansante", "Sortie culturelle", "Concert", "Sport", "Soirée jeux de société", "Sortie chill", "Activité en plein air", "Cours de cuisine", "Bien-être", "Parc & fun", "Ateliers", "Aquatique", "Pilotage", "Visites"];
+            for (let i = 0; i < category.length; i++) {
+                const newCategory = new Category();
+                newCategory.name = category[i];
+                await CategoryService.addCategory(newCategory);
+            }
+            res.json({ message: 'Success' });
+        }
+        catch (error) {
+            return error.status(404).json({message: error.message});
+        }
+    }
 }
 
 export default CategoryController;
