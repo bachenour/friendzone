@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="29b29827-8daf-44e4-937b-6f32c1df56cc" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/friendzone-back/controllers/users.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/friendzone-back/controllers/users.controller.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/friendzone-back/routes/users.route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/friendzone-back/routes/users.route.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/friendzone-back/services/user.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/friendzone-back/services/user.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.friendzone.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.friendzone.dir/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,6 +67,8 @@
       <workItem from="1674676347889" duration="164000" />
       <workItem from="1674676538522" duration="608000" />
       <workItem from="1674678054324" duration="2843000" />
+      <workItem from="1675686347764" duration="10204000" />
+      <workItem from="1675977068086" duration="1847000" />
     </task>
     <servers />
   </component>
