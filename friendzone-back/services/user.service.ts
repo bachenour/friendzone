@@ -47,12 +47,10 @@ class UserService{
                 throw new Error("User not found");
             }
         } catch (e) {
-            return e;
+            return {error: e.message};
         }
     }
-                    
-            
-    
+                   
     static async updateUserData(id: any, userData: User) {
         try {
             console.log(userData);
