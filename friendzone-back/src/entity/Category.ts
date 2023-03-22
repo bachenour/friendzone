@@ -1,7 +1,7 @@
 import {Column, Entity, OneToMany, PrimaryGeneratedColumn} from "typeorm";
 import {Activity} from "./Activity";
-import {Opinion} from "./opinion";
-import {Users_activity} from "./users_activity";
+import {Opinion} from "./Opinion";
+import {Users_activity} from "./Users_activity";
 
 @Entity("category")
 
