@@ -18,5 +18,5 @@ export class Post {
 
     @ManyToOne(() => User, user => user.posts)
     @JoinColumn({name:"users_id"})
-    users_id: User
+    users: User
 }

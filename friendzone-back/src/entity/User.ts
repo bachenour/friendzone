@@ -53,7 +53,7 @@ export class User {
     
     token: string
 
-    @OneToMany(() => Post, post => post.users_id)
+    @OneToMany(() => Post, post => post.users)
     posts: Post[]
 
     @OneToMany(() => Activity, activity => activity.users)

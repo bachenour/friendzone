@@ -16,7 +16,7 @@ export class PostDto {
             data.content = req.body.content;
             data.creationDate = req.body.creationDate;
             AppDataSource.manager.findOne(User, {where: {id: req.body.users_id}}).then((user) => {
-                data.users_id = user;
+                data.users = user;
                 req.body = data;
                 next();
             });
