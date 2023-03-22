@@ -39,16 +39,16 @@ export class ActivityDto {
     }
 
     findActivityByUserId = (req: Request, res: Response, next: NextFunction) => {
-            try {
-                if (!req.params.id) throw new HttpException(400, 'erreur pas d\'id');
+        try {
+            if (!req.params.id) throw new HttpException(400, 'erreur pas d\'id');
 
-                let id = parseInt(req.params.id);
-                AppDataSource.manager.findOne(User, {where: {id: id}}).then((user) => {
-                    req.body = user;
-                    next();
-                });
-            }catch (e) {
-                next(e);
-            }
+            let id = parseInt(req.params.id);
+            AppDataSource.manager.findOne(User, {where: {id: id}}).then((user) => {
+                req.body = user;
+                next();
+            });
+        }catch (e) {
+            next(e);
+        }
     }
 }

@@ -26,7 +26,11 @@ class PostService {
 
     static async getPostsByUserId(userId: any) {
         try {
-            return await AppDataSource.manager.findBy(Post,  {users_id: userId})
+            if (userId == null) {
+                return {error:"No Posts found with this user id"};
+            }
+            const PostData = await AppDataSource.manager.findBy(Post, {users: userId});
+            return PostData.length === 0 ? {error: 'Posts not found'} : PostData;
         } catch (e) {
             return e;
         }
