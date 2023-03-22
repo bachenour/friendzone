@@ -25,7 +25,7 @@ class ActivityService{
     }
     static async getActivitiesByUserId(userId: any) {
         try {
-            return await AppDataSource.manager.findBy(Activity,  {users_id: userId})
+            return await AppDataSource.manager.findBy(Activity,  {users: userId})
         } catch (e) {
             return e;
         }
