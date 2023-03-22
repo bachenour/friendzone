@@ -7,19 +7,15 @@ class UserService{
     
     static async getUserByEmail(email: any) {
         try{
-            console.log(email);
             const user = await  AppDataSource.manager.findBy(User, {email: email});
-            console.log(user);
             return user;
         }
         catch(e){
-            console.log("error");
             return e;
         }
     }
     static async signUp(newUser: User) {
         try {
-            console.log(newUser);
             const jwtService= new JwtService();
             await AppDataSource.manager.save(newUser).then(
                 (user) => {
@@ -30,7 +26,6 @@ class UserService{
             //Create jwt token
             return newUser;
         } catch (e) {
-            console.log("error");
             return e;
         }
     }
@@ -46,10 +41,10 @@ class UserService{
                     user.token = jwtService.sign({email: user.email, pseudo: user.pseudo});
                     return user;
                 } else {
-                    return "Password is incorrect";
+                    throw new Error("User not found");
                 }
             } else {
-                return "User not found";
+                throw new Error("User not found");
             }
         } catch (e) {
             return e;
