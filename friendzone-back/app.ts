@@ -3,13 +3,14 @@ process.env['NODE_CONFIG_DIR'] = __dirname + '/configs';
 import * as compression from 'compression';
 import * as cookieParser from 'cookie-parser';
 import * as cors from 'cors';
-import config from 'config';
 import * as express from "express";
 import * as helmet from 'helmet';
 import * as hpp from 'hpp';
 import * as swaggerJSDoc from 'swagger-jsdoc';
 import * as swaggerUi from 'swagger-ui-express';
 import { Routes } from "./interfaces/routes.interface";
+import  "reflect-metadata";
+
 
 
 export default class App {

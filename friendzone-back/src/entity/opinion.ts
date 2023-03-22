@@ -2,9 +2,9 @@ import {Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn} from "typ
 import {User} from "./User";
 import {Category} from "./Category";
 
-@Entity("activity")
+@Entity("opinion")
 
-export class Activity {
+export class Opinion {
 
     @PrimaryGeneratedColumn({name: "id"})
     id: number
@@ -12,26 +12,14 @@ export class Activity {
     @Column("varchar", { length: 256, nullable: true })
     subject: string
 
-    @Column("int", { nullable: true })
-    max_person: number
-
-    @Column("datetime", { nullable: true })
-    date_activity: Date
-
     @Column("varchar", { nullable: true })
-    address: string
-
-    @Column("varchar", { nullable: true })
-    city: string
-
-    @Column("int", { nullable: true })
-    postal_code: number
-
-    @ManyToOne(() => Category, category => category.activity, {nullable: false})
-    @JoinColumn({name:"category_id"})
-    category: Category
+    text: string
 
     @ManyToOne(() => User, user => user.activity, {nullable: false})
     @JoinColumn({name:"users_id"})
     users: User
+
+    @ManyToOne(() => Category, category => category.activity, {nullable: false})
+    @JoinColumn({name:"category_id"})
+    category: Category
 }
