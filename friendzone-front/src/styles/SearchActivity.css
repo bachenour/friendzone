@@ -1,0 +1,14 @@
+.searchActivity {
+    display: flex;
+    justify-content: center;
+    margin-top: 100px;
+    text-align: center;
+}
+
+.searchActivity input {
+    font-size: 1.2rem;
+}
+
+.search__result {
+    text-align: center;
+}
