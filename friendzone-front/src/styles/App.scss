@@ -1,0 +1,31 @@
+@import "bootstrap/scss/bootstrap";
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body{
+    background-image: url("../assets/body_bckgrnd.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+.blur-background{
+    background: rgba(255, 255, 255, 0.33);
+    min-height: 650px;
+    z-index: 1;
+    margin-top: -5%;
+}
+
+.containing{
+  opacity: inherit;
+}
+
+.container{
+  max-width: 1620px;
+}
+
