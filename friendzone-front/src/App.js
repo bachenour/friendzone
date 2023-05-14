@@ -1,17 +1,26 @@
 import Nav from './components/Nav'
-import SearchActivity from "./components/SearchActivity"
-import CarrouselCategorie from "./components/CarrouselCategorie"
-import GalaxyCardDemo from "./components/CardCategorie"
-import './styles/App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min';
+import {Route, Routes} from "react-router-dom";
+import Home from "./components/Home";
+import './styles/App.scss';
+import Footer from "./components/Footer";
+
 
 function App() {
   return (
-    <div>
+    <>
       <Nav />
-      <SearchActivity />
-      <CarrouselCategorie />
-      <GalaxyCardDemo />
-    </div>
+        <div className="container blur-background">
+          <div className="containing">
+            <Routes>
+              //ajouter les routes ici
+              <Route path="/" element={<Home />} />
+            </Routes>
+          </div>
+        </div>
+      <Footer/>
+    </>
   );
 }
 
