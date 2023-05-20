@@ -5,6 +5,7 @@ import {Route, Routes} from "react-router-dom";
 import Home from "./components/Home";
 import './styles/App.scss';
 import Footer from "./components/Footer";
+import Authentication from "./components/authentication/AuthenticationComponent";
 
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
             <Routes>
               //ajouter les routes ici
               <Route path="/" element={<Home />} />
+              <Route path="/authentification" element={<Authentication />} />
             </Routes>
           </div>
         </div>
