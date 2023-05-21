@@ -3,12 +3,25 @@
     justify-content: center;
     margin-top: 100px;
     text-align: center;
+    padding-top: 80px;
+}
+
+.searchBar{
+    padding-right: 20px;
+    padding-left: 20px;
 }
 
 .searchActivity input {
     font-size: 1.2rem;
 }
 
-.search__result {
+.search__results {
+    display: flex;
+    justify-content: center;
     text-align: center;
+    margin-top: 30px;
+}
+
+.buttonSearch{
+
 }
