@@ -1,10 +1,9 @@
-import SearchActivity from "./SearchActivity"
-import CarrouselCategorie from "./SearchActivity"
+import SearchActivity from "./SearchActivity";
 
 function Home(){
     return(
         <>
-            <CarrouselCategorie />
+            <SearchActivity/>
         </>
     )
 }
