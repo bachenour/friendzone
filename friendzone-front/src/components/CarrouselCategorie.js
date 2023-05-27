@@ -66,7 +66,7 @@ function CarrouselCategorie() {
             <Swiper
                 breakpoints={{
                     769: {
-                        slidesPerView: 5,
+                        slidesPerView: 4,
                         slidesPerGroup: 1,
                     },
                 }} navigation={true} modules={[Navigation]} className="mySwiper">
