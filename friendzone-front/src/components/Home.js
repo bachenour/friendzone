@@ -1,9 +1,11 @@
 import SearchActivity from "./SearchActivity";
+import MemoryActivity from "./MemoryActivity"
 
 function Home(){
     return(
         <>
             <SearchActivity/>
+            <MemoryActivity />
         </>
     )
 }
