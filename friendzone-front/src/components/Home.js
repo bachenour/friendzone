@@ -1,6 +1,7 @@
 import SearchActivity from "./SearchActivity"
 import CarrouselCategorie from "./CarrouselCategorie"
 import CardCategorie from "./CardCategorie"
+import MemoryActivity from "./MemoryActivity"
 
 function Home(){
     return(
@@ -8,6 +9,7 @@ function Home(){
             <SearchActivity />
             <CarrouselCategorie />
             <CardCategorie />
+            <MemoryActivity />
         </>
     )
 }

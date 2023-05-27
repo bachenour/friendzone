@@ -1,19 +1,10 @@
 import "../styles/SearchActivity.css";
 import React from "react";
-import { styled } from "@mui/material/styles";
-import Button from "@mui/material/Button";
-import { purple } from "@mui/material/colors";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faMagnifyingGlass} from "@fortawesome/free-solid-svg-icons/faMagnifyingGlass";
 
 
 const listActivity = [
-  // {label: 'Bowling', value: 'Bowling'},
-  // {label: 'Billard', value: 'Billard'},
-  // {label: 'Restaurant', value: 'Restaurant'},
-  // {label: 'shopping', value: 'shopping'},
-  // {label: 'Cinéma', value: 'Cinéma'},
-  // {label: 'Laser-game', value: 'Laser-game'},
   "Bowling",
   "Billard",
   "Restaurant",
@@ -63,13 +54,14 @@ function SearchActivity() {
   )
     .then((response) => response.json())
     .then((json) => (cityResults = json));
+    console.log(cityResults)
 
   return (
     <>
       <div className="bar">
         <div className="check-out">
           <p>OU ?</p>
-          <input type="text" placeholder="Ville, code postal..."></input>
+          <input type="text" value={searchTerm} placeholder="Ville, code postal..."></input>
         </div>
         <div className="guests">
           <p>QUOI ?</p>
