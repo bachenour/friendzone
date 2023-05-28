@@ -1,89 +1,124 @@
 import "../styles/SearchActivity.css";
-import React from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faMagnifyingGlass} from "@fortawesome/free-solid-svg-icons/faMagnifyingGlass";
-
-
-const listActivity = [
-  "Bowling",
-  "Billard",
-  "Restaurant",
-  "shopping",
-  "Cinéma",
-  "Laser-game",
-];
+import React, {useEffect} from "react";
+import axios from "axios";
+import {Autocomplete, Box, TextField} from "@mui/material";
 
 let cityResults = [];
 
+const listActivity = [
+    {nom: "Bowling"},
+    {nom: "Billard"},
+    {nom: "Restaurant"},
+    {nom: "shopping"},
+    {nom: "Cinéma"},
+    {nom: "Laser-game"}
+]
+
+
 function SearchActivity() {
-  const [searchTerm, setSearchTerm] = React.useState("");
-  const [searchResults, setSearchResults] = React.useState([]);
   const handleChange = (event) => {
     setSearchTerm(event.target.value);
   };
 
-  React.useEffect(() => {
-    let results = [];
-    console.log("searchTerm : " + searchTerm);
-    if (searchTerm !== "") {
-      results = listActivity.filter((activity) =>
-        activity.toLowerCase().startsWith(searchTerm.toLowerCase().slice(0, 3))
-      );
-      setSearchResults(results);
-      console.log("searchResults : " + searchResults);
-    } else if (searchTerm === "") {
-      setSearchResults([]);
-    }
-  }, [searchTerm]);
+    const [searchTerm, setSearchTerm] = React.useState("");
+    const [activitiesList, setActivitiesList] = React.useState([]);
+    
+    const [cityTerm, setCityTerm] = React.useState("");
+    const [cityResults, setCityResults] = React.useState([]);
+    
 
-  const handleResultClick = (result) => {
-    setSearchTerm(result);
-  };
-
-  fetch(
-    "https://geo.api.gouv.fr/communes?nom=" +
-      searchTerm +
-      "&fields=departement&boost=population&limit=5",
-    {
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      method: "GET",
-    }
-  )
-    .then((response) => response.json())
-    .then((json) => (cityResults = json));
-    console.log(cityResults)
-
-  return (
-    <>
-      <div className="bar">
-        <div className="check-out">
-          <p>OU ?</p>
-          <input type="text" value={searchTerm} placeholder="Ville, code postal..."></input>
-        </div>
-        <div className="guests">
-          <p>QUOI ?</p>
-          <input type="text" value={searchTerm} onChange={handleChange} placeholder="Rechercher une activité"></input>
-            <button>
-                <FontAwesomeIcon icon={faMagnifyingGlass} />
-            </button>
-        </div>
-      </div>
-      <div className="search__results">
-        {searchResults.length > 0 && searchTerm !== '' && (
-                <ul>
-                    {searchResults.map((suggestion, index) =>(
-                        <li key={index} onClick={() => handleResultClick(suggestion)}>
-                            {suggestion}
-                        </li>
-                    ))}
-                </ul>
-            )}             
-        </div>
-    </>
-  );
+    React.useEffect(() => {
+        //Ile de france departements array
+        let departement = ["75", "77", "78", "91", "92", "93", "94", "95", "13", "69", "972", "971"];
+        let cityList = [];
+        
+        //if no city in cityResults
+        if (cityResults.length === 0) {
+            //for each departement get cities
+            departement.map((departement) => {
+                axios.get("https://geo.api.gouv.fr/departements/" + departement + "/communes")
+                    .then(response => {
+                        //for each city add if not in cityList
+                        response.data.map((city) => {
+                            if (!cityList.includes(city)) {
+                                cityList.push(city);
+                            }
+                        })
+                    })
+            })
+            setCityResults(cityList);
+        }
+        
+        //if activitiesList is empty
+        if (activitiesList.length === 0) {
+            axios.get("http://127.0.0.1:3030/category/getCategories")
+                .then(response => {
+                    setActivitiesList(response.data.categories);
+                })
+        }
+        
+    }, []);
+    
+    return (
+        <>
+            <div className="searchActivity">
+                <Autocomplete
+                    id="country-select-demo"
+                    sx={{ width: 300 }}
+                    options={activitiesList}
+                    autoHighlight
+                    getOptionLabel={(option) => option.name }
+                    renderOption={(props, option) => (
+                        <Box
+                            component="li"
+                            sx={{ '& > img': { mr: 2, flexShrink: 0 } }}
+                            key={`${option.name}-${option.id}`}
+                            {...props}>
+                            {option.name}
+                        </Box>
+                    )}
+                    renderInput={(params) => (
+                        <TextField
+                            {...params}
+                            label="Une activité ?"
+                            inputProps={{
+                                ...params.inputProps,
+                                autoComplete: 'new-password', // disable autocomplete and autofill
+                            }}
+                        />
+                    )}
+                />
+                <Autocomplete
+                    id="country-select-demo"
+                    sx={{ width: 300 }}
+                    options={cityResults}
+                    autoHighlight
+                    getOptionLabel={(option) => option.nom + " - " + option.code}
+                    renderOption={(props, option) => (
+                        <Box
+                            component="li"
+                            sx={{ '& > img': { mr: 2, flexShrink: 0 } }}
+                            key={`${option.nom}-${option.code}`}
+                            {...props}>
+                            {option.nom}
+                        </Box>
+                    )}
+                    renderInput={(params) => (
+                        <TextField
+                            {...params}
+                            label="Choisis une ville"
+                            inputProps={{
+                                ...params.inputProps,
+                                autoComplete: 'new-password', // disable autocomplete and autofill
+                            }}
+                        />
+                    )}
+                />
+            </div>
+        </>
+    )
 }
 
 export default SearchActivity;

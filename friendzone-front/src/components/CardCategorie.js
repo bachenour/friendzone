@@ -31,25 +31,7 @@ const listCategorieCard = [
         categorie: 'Activité en plein air', url: 'https://m1.quebecormedia.com/emp/emp/iStock_1096035138_copie347e0536-fe46-4d56-80c4-d0be45106279_ORIGINAL.jpg?impolicy=crop-resize&x=0&y=0&w=0&h=0&width=925', description: "Lorem ipsum", auteur: "Nour"
     },
     {
-        categorie: 'Cours de cuisine', url: 'https://www.wonderbox.fr/blog/wp-content/uploads/sites/4/2020/02/Nos-ateliers-culinaires-cours-de-cuisine-1-1.jpg', description: "Lorem ipsum", auteur: "Lily"
-    },
-    {
-        categorie: 'Bien-être', url: 'https://resize.elle.fr/original/var/plain_site/storage/images/minceur/bien-etre-relaxation/voici-la-tendance-bien-etre-de-2023-4077465/97831135-1-fre-FR/Voici-LA-tendance-bien-etre-de-2023.jpg', description: "Lorem ipsum", auteur: "Flo"
-    },
-    {
-        categorie: 'Parc & fun', url: 'https://ns328286.ip-37-187-113.eu/ew/wallpapers/800x480/14467_800x480.jpg', description: "Lorem ipsum", auteur: "Lily"
-    },
-    {
-        categorie: 'Ateliers', url: 'https://www.payssaintgilles-tourisme.fr/wp-content/uploads/wpetourisme/poterie-adulte-V.M.jpg', description: "Lorem ipsum", auteur: "Hakim"
-    },
-    {
-        categorie: 'Activité aquatique', url: 'https://www.myluxurytravel.fr/wp-content/uploads/2017/07/towerofneptune-sharks-hotel-dubai-atlantis-palm.jpeg', description: "Lorem ipsum", auteur: "Nour"
-    },
-    {
-        categorie: 'Pilotage', url: 'https://www.motorsport-academy.fr/861-slider_produit/coffret-pilotage-elite.jpg', description: "Lorem ipsum", auteur: "Flo"
-    },
-    {
-        categorie: 'Visites', url: 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/13/7a/77/00/musee-des-beaux-arts.jpg?w=1200&h=1200&s=1', description: "Lorem ipsum", auteur: "Lily"
+        categorie: 'Activité en plein air', url: 'https://m1.quebecormedia.com/emp/emp/iStock_1096035138_copie347e0536-fe46-4d56-80c4-d0be45106279_ORIGINAL.jpg?impolicy=crop-resize&x=0&y=0&w=0&h=0&width=925', description: "Lorem ipsum", auteur: "Nour"
     }
 ]
 
