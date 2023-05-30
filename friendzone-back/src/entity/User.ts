@@ -1,7 +1,7 @@
 import {Entity, PrimaryGeneratedColumn, Column, OneToMany} from "typeorm"
 import {Post} from "./Post";
 import {Activity} from "./Activity";
-import {Users_activity} from "./users_activity";
+import {Users_activity} from "./Users_activity";
 
 @Entity("users")
 export class User {
@@ -59,7 +59,7 @@ export class User {
     @OneToMany(() => Activity, activity => activity.users)
     activity: Activity[]
 
-    @OneToMany(() => Users_activity, users_activity => users_activity.category)
+    @OneToMany(() => Users_activity, users_activity => users_activity.activity)
     users_activity: Users_activity[]
 
 }
