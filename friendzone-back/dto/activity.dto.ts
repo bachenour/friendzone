@@ -37,6 +37,28 @@ export class ActivityDto {
             next(e);
         }
     }
+    
+    joinActivity = (req: Request, res: Response, next: NextFunction) => {
+        try {
+            if (!req.params.id) throw new HttpException(400, 'erreur: pas d\'id d\'activité');
+            let activityId = parseInt(req.params.id);
+            let userEmail = req.body.userPayload.email;
+            
+            AppDataSource.manager.findOne(Activity, {where: {id: activityId}}).then((activity) => {
+                if (activity.users_activity !== undefined && activity.users_activity.length >= activity.max_person) throw new HttpException(400, 'erreur: activité pleine');
+                req.body.activity = activity;
+            });
+            
+            AppDataSource.manager.findOne(User, {where: {email: userEmail}}).then((user) => {
+                req.body.user = user;
+                next();
+            });
+
+            //get User from jwt Token
+        } catch (e) {
+            next(e);
+        }
+    }
 
     findActivityByUserId = (req: Request, res: Response, next: NextFunction) => {
         try {

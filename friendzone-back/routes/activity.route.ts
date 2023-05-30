@@ -18,9 +18,11 @@ export class ActivityRoute implements Routes {
 
     private initializeRoutes() {
         this.router.post(`${this.path}/addActivity`, authMiddleware.verify,  activityDto.addActivity, activityController.addActivity);
+        this.router.post(`${this.path}/:id/joinActivity`, authMiddleware.verify, activityDto.joinActivity, activityController.joinActivity);
         this.router.get(`${this.path}/getActivities`, activityController.getActivities);
         this.router.get(`${this.path}/:id`, activityDto.findActivityByUserId, activityController.getActivitiesByUserId);
         this.router.put(`${this.path}/:id`, authMiddleware.verify, activityController.updateActivity);
         this.router.delete(`${this.path}/:id`, authMiddleware.verify, activityController.deleteActivityById);
+        
     }
 }
