@@ -34,8 +34,8 @@ export class Activity {
     category: Category
 
     @ManyToOne(() => User, user => user.activity, {nullable: false})
-    @JoinColumn({name:"users_id"})
-    users: User
+    @JoinColumn({name:"author_id"})
+    user: User
 
     @OneToMany(() => Users_activity, users_activity => users_activity.activity)
     users_activity: Users_activity[]

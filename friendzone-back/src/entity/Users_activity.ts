@@ -13,7 +13,7 @@ export class Users_activity {
     @JoinColumn({name:"users_id"})
     users: User
 
-    @ManyToOne(() => Activity, activity => activity.users, {nullable: false})
+    @ManyToOne(() => Activity, activity => activity.users_activity, {nullable: false})
     @JoinColumn({name:"activity_id"})
     activity: Activity
 }

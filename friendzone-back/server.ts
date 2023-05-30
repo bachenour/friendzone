@@ -6,10 +6,11 @@ import {UsersRoute} from "./routes/users.route";
 import 'dotenv/config';
 import App from './app';
 import validateEnv from './utils/validateEnv';
+import {ScriptRoute} from "./routes/script.route";
 
 process.env['NODE_CONFIG_DIR'] = __dirname + '/configs';
 
 validateEnv();
 
-const app = new App([new UsersRoute(), new PostsRoute(), new CategoryRoute(), new ActivityRoute()]);
+const app = new App([new UsersRoute(), new PostsRoute(), new CategoryRoute(), new ActivityRoute(), new ScriptRoute()]);
 app.listen();
