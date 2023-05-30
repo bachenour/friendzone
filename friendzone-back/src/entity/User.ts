@@ -56,7 +56,7 @@ export class User {
     @OneToMany(() => Post, post => post.users)
     posts: Post[]
 
-    @OneToMany(() => Activity, activity => activity.users)
+    @OneToMany(() => Activity, activity => activity.user)
     activity: Activity[]
 
     @OneToMany(() => Users_activity, users_activity => users_activity.activity)

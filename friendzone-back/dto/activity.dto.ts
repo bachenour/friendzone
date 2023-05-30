@@ -28,7 +28,7 @@ export class ActivityDto {
                 req.body = data;
             });
             AppDataSource.manager.findOne(User, {where: {id: req.body.users_id}}).then((user) => {
-                data.users = user;
+                data.user = user;
                 req.body = data;
                 next();
             });

@@ -28,7 +28,7 @@ class ActivityService{
             if (userId == null) {
                 return {error:"No Activity found with this user id"};
             }
-            const ActivitiesData = await AppDataSource.manager.findBy(Activity, {users: userId});
+            const ActivitiesData = await AppDataSource.manager.findBy(Activity, {user: userId});
             return ActivitiesData.length === 0 ? {error: 'Activity not found'} : ActivitiesData;
         } catch (e) {
             return e;
