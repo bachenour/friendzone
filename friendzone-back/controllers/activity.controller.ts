@@ -57,6 +57,17 @@ class ActivityController {
         }
     }
     
+    public joinActivity = async (req: Request, res: Response) => {
+        try {
+            const activity = req.body.activity;
+            const user = req.body.user;
+            const joinActivity = await ActivityService.joinActivity(activity, user);
+            res.json({ joinActivity, message: 'L\'utilisateur a bien été ajouté à l\'activité' });
+        } catch (error) {
+            return res.status(404).json({message: error.message});
+        }
+    }
+    
     public scriptAddActivity = async (req: Request, res: Response) => {
         const activitySubjects = [
             'Paintball Extrême',

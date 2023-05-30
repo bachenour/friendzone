@@ -27,8 +27,9 @@ export class JwtService {
             if (err) {
                 return res.status(500).send({auth: false, message: 'Failed to authenticate token.'});
             }
-            console.log(decoded);
-            //req.userId = decoded.id;
+            
+            req.body.userPayload = decoded;
+           
             next();
         });
     }
