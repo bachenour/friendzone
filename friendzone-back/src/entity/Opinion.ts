@@ -15,11 +15,7 @@ export class Opinion {
     @Column("varchar", { nullable: true })
     text: string
 
-    @ManyToOne(() => User, user => user.activity, {nullable: false})
+    @ManyToOne(() => User, user => user.opinion, {nullable: false})
     @JoinColumn({name:"users_id"})
     users: User
-
-    @ManyToOne(() => Category, category => category.activity, {nullable: false})
-    @JoinColumn({name:"category_id"})
-    category: Category
 }
