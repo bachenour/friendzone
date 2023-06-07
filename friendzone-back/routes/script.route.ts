@@ -3,8 +3,10 @@ import {Router} from "express";
 import {JwtService} from "../services/jwt.service";
 import bcrypt from 'bcrypt';
 import ActivityController from "../controllers/activity.controller";
+import PostController from "../controllers/post.controller";
 
 const activityController = new ActivityController();
+const postController = new PostController();
 
 
 export class ScriptRoute implements Routes {
@@ -17,6 +19,7 @@ export class ScriptRoute implements Routes {
     
     private initializeRoutes() {
         this.router.get(`${this.path}/addActivity`, activityController.scriptAddActivity);
+        this.router.get(`${this.path}/addPost`, postController.scriptAddPost);
     }
     
 }
