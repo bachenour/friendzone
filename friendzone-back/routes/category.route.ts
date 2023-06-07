@@ -21,6 +21,5 @@ export class CategoryRoute implements Routes {
         this.router.get(`${this.path}/getCategories`, categoryController.getCategories);
         this.router.put(`${this.path}/:id`, authMiddleware.verify, categoryController.updateCategory);
         this.router.delete(`${this.path}/:id`, authMiddleware.verify,  categoryController.deleteCategoryById);
-        this.router.post(`${this.path}/script/addCategory`, categoryController.scriptAddCategory);
     }
 }

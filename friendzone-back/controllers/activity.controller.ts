@@ -3,6 +3,8 @@ import ActivityService from "../services/activity.service";
 import {Request, Response} from "express";
 import {faker} from "@faker-js/faker";
 import {AppDataSource} from "../src/data-source";
+import {User} from "../src/entity/User";
+import {Users_activity} from "../src/entity/Users_activity";
 
 class ActivityController {
 
@@ -173,6 +175,37 @@ class ActivityController {
         catch (error) {
             return { message: error.message }
         }
+    }
+    
+    public scriptAddUserToActivity = async (req: Request, res: Response) => {
+        const userRepository = AppDataSource.getRepository(User);
+        const activityRepository = AppDataSource.getRepository(Activity);
+        const userActivityRepository = AppDataSource.getRepository(Users_activity);
+
+        const users = await userRepository.find();
+        const activities = await activityRepository.find();
+
+        if (users.length === 0 || activities.length === 0) {
+            console.log('No users or activities found in the database. Please create some first.');
+            return;
+        }
+
+        for (let user of users) {
+            // Pour chaque utilisateur, tenter de l'associer à une activité
+            for (let activity of activities) {
+                const userActivityCount = await userActivityRepository.count({ where: { activity: activity } });
+                if (userActivityCount < activity.max_person) {
+                    // Si l'activité n'est pas complète, créer une nouvelle instance de UserActivity
+                    const userActivity = new Users_activity();
+                    userActivity.users = user;
+                    userActivity.activity = activity;
+
+                    await userActivityRepository.save(userActivity);
+                    break;  // Sortir de la boucle une fois que l'utilisateur a été associé à une activité
+                }
+            }
+        }
+        res.json({ message: 'Script OK' });
     }
 }
 export default ActivityController;
