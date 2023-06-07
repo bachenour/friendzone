@@ -121,7 +121,6 @@ class PostController {
                 post.content = faker.lorem.paragraphs(1);
                 post.creationDate = faker.date.between({ from: '2022-09-01', to: '2023-07-31'});
                 post.users = users[Math.floor(Math.random() * users.length)];
-                console.log(post);
     
                 AppDataSource.getRepository('Post').save(post);
             }
