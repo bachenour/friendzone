@@ -4,9 +4,11 @@ import {JwtService} from "../services/jwt.service";
 import bcrypt from 'bcrypt';
 import ActivityController from "../controllers/activity.controller";
 import PostController from "../controllers/post.controller";
+import OpinionController from "../controllers/opinion.controller";
 
 const activityController = new ActivityController();
 const postController = new PostController();
+const OpinionsController = new OpinionController();
 
 
 export class ScriptRoute implements Routes {
@@ -20,6 +22,7 @@ export class ScriptRoute implements Routes {
     private initializeRoutes() {
         this.router.get(`${this.path}/addActivity`, activityController.scriptAddActivity);
         this.router.get(`${this.path}/addPost`, postController.scriptAddPost);
+        this.router.get(`${this.path}/addOpinion`, OpinionsController.scriptAddOpinion);
     }
     
 }

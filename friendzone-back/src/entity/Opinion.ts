@@ -10,9 +10,6 @@ export class Opinion {
     @PrimaryGeneratedColumn({name: "id"})
     id: number
 
-    @Column("varchar", { length: 256, nullable: true })
-    subject: string
-
     @Column("varchar", { nullable: true })
     text: string
 
