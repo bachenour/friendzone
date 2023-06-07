@@ -43,20 +43,20 @@
   background-color: #F95757;
   color: #FFFFFF;
   border-radius: 20px 20px 20px 5px;
-  margin-left: 10px; // Ajout pour créer de l'espace entre l'icône et la bulle
+  margin-left: 10px;
 }
 
 .bubble-right {
   background-color: #FFFFFF;
   color: #000000;
   border-radius: 20px 20px 5px 20px;
-  margin-right: 10px; // Ajout pour créer de l'espace entre l'icône et la bulle
+  margin-right: 10px; 
 }
 
 .icon-left,
 .icon-right {
-  height: 2em; /* Ajustez cette valeur en fonction de la hauteur de vos bulles */
-  width: auto; /* Cela permettra de préserver le rapport d'aspect de l'image */
+  height: 2em;
+  width: auto;
 }
 
 .submit-register {
@@ -71,3 +71,6 @@
   align-self: center;
 }
 
+.error-bubble-right {
+  border: 1px solid red;
+}
