@@ -5,6 +5,8 @@ import IconRight from './icons8-personne-homme-64_1.png'; // Remplacez par le ch
 import '../../../validators/validators';
 import * as Validators from '../../../validators/validators';
 import Select from 'react-select';
+import ErrorsComponent from '../../authentication/errors/ErrorsComponent';
+import axios from 'axios';
 
 export default function RegisterForm() {
     const sexEnum = [
@@ -13,7 +15,9 @@ export default function RegisterForm() {
         { value: "autre", label: "Autre" }
     ];
     
-    const [errors, setErrors] = useState([]);
+    const [response, setResponse] = useState(null);
+    
+    const [errors, setErrors] = useState({});
     const [firstName, setFirstName] = useState('');
     const [isFirstName, setIsFirstName] = useState('');
     const [lastName, setLastName] = useState('');
@@ -120,14 +124,8 @@ export default function RegisterForm() {
             setIsConfirmPassword(true);
         }
     }
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        //ajouter les request axios pour envoyer les données dans la bdd
-        console.log('Email:', email);
-        console.log('Mot de passe:', password);
-        console.log('Pseudo', pseudo);
-
+    
+    const resetForm = () => {
         // On remet à vide le formulaire
         setFirstName('');
         setIsFirstName('');
@@ -153,7 +151,37 @@ export default function RegisterForm() {
         setIsPassword('');
         setPseudo('');
         setIsPseudo('');
+    }
+    
+    const checkAllFields = () => {
+        return !!(firstName && lastName)
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        axios.post('http://127.0.0.1:3030/users/signup', {
+            name: firstName,
+            full_name: lastName,
+            pseudo: pseudo,
+            email: email,
+            password: password,
+            user_address: address,
+            postal_code: postalCode,
+            city: city,
+            phone_number: phone,
+            sex: sex,
+            age: age
+        })
+            .then((response) => {
+                setResponse(response.data);
+                if(response.data === 'success') {
+                    resetForm();
+                }
+                else errors.push(response.data);
+            })
     };
+
 
     return (
         <div className="register-form-container">
@@ -163,11 +191,12 @@ export default function RegisterForm() {
                 <div className="message-row">
                     <img src={IconLeft} alt="left icon" className="icon-left"/>
                     <div className="bubble-left">
-                        <label htmlFor="firstName">Bonjour, quel est votre prénom ?</label>
+                        <label htmlFor="firstName">Bonjour, quel est votre prénom?</label>
                     </div>
                 </div>
                 <div className="message-row">
-                    <div className="bubble-right">
+                    <div className={ errors.firstName ? "bubble-right error-bubble-right" : "bubble-right"}
+                    >
                         <input
                             placeholder="Votre prénom"
                             type="text"
@@ -182,7 +211,9 @@ export default function RegisterForm() {
                     </div>
                     <img src={IconRight} alt="right icon" className="icon-right"/>
                 </div>
-
+                {errors.firstName && (
+                    <ErrorsComponent error={errors.firstName} />
+                )}
                 {isFirstName && (
                     <>
                         <div className="message-row">
@@ -489,10 +520,6 @@ export default function RegisterForm() {
                             </>)}
                     </>)}
             </form>
-            <div>
-                <p>{errors.firstName}</p>
-                <p>{errors.lastName}</p>
-            </div>
         </div>
     );
 }

@@ -1,6 +1,6 @@
 
 
-function footer(){
+function Footer(){
     return(
         <footer className="footer mt-auto py-3 bg-transparent fixed-bottom">
             <div className="container text-center ">
@@ -10,4 +10,4 @@ function footer(){
     )
 }
 
-export default footer;
+export default Footer;
