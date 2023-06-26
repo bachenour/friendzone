@@ -7,10 +7,11 @@ import 'dotenv/config';
 import App from './app';
 import validateEnv from './utils/validateEnv';
 import {ScriptRoute} from "./routes/script.route";
+import {OpinionRoute} from "./routes/opinion.route";
 
 process.env['NODE_CONFIG_DIR'] = __dirname + '/configs';
 
 validateEnv();
 
-const app = new App([new UsersRoute(), new PostsRoute(), new CategoryRoute(), new ActivityRoute(), new ScriptRoute()]);
+const app = new App([new UsersRoute(), new PostsRoute(), new CategoryRoute(), new ActivityRoute(), new ScriptRoute(), new OpinionRoute()]);
 app.listen();
