@@ -5,6 +5,7 @@ import {User} from "../src/entity/User";
 import {Post} from "../src/entity/Post";
 import {Opinion} from "../src/entity/Opinion";
 import {AppDataSource} from "../src/data-source";
+import {OpinionService} from "../services/opinion.service";
 
 class OpinionController{
     
@@ -63,6 +64,40 @@ class OpinionController{
             await opinionRepository.save(opinion);
         }
         res.json({ message: 'Opinions added' });
+    }
+    
+    public addOpinion = async (req: Request, res: Response) => {
+        try {
+            const data: Opinion = req.body;
+            const opinion = await OpinionService.addOpinion(data);
+            if (opinion.error) {
+                res.status(400).json(opinion);
+            }
+            res.json(opinion);
+        } catch (error) {
+            res.status(400).json({message: error.message});
+        }
+    }
+    
+    public getOpinions = async (req: Request, res: Response) => {
+        try {
+            const post_id = req.body.post_id ?? null;
+            const activity_id = req.body.activity_id ?? null;
+            const opinions = await OpinionService.getOpinions(post_id, activity_id);
+            res.json(opinions);
+        } catch (error) {
+            res.status(400).json({message: error.message});
+        }
+    }
+    
+    public deleteOpinion = async (req: Request, res: Response) => {
+        try {
+            const id = req.body.id;
+            const opinion = await OpinionService.deleteOpinionById(id);
+            res.json(opinion);
+        } catch (error) {
+            res.status(400).json({message: error.message});
+        }
     }
 }
 
