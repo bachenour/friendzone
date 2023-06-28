@@ -60,6 +60,7 @@ export class User {
     @OneToMany(() => Activity, activity => activity.user)
     activity: Activity[]
 
+    // @ts-ignore
     @OneToMany(() => Users_activity, users_activity => users_activity.activity)
     users_activity: Users_activity[]
 

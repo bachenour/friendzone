@@ -1,5 +1,6 @@
 import {AppDataSource} from "../src/data-source";
 import {Post} from "../src/entity/Post";
+import {User} from "../src/entity/User";
 
 class PostService {
     static async addPost(newPost: Post) {
@@ -18,7 +19,12 @@ class PostService {
 
     static async getposts() {
         try {
-            return await AppDataSource.manager.find(Post);
+            return await AppDataSource.getRepository(Post)
+                .createQueryBuilder('post')
+                .select('post')
+                .addSelect('users.pseudo')
+                .leftJoin('post.users', 'users')
+                .leftJoinAndSelect('post.opinion','opinion').getMany();
         } catch (e) {
             return e;
         }
