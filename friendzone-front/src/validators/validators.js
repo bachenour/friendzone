@@ -23,5 +23,19 @@ const validAddress = (address) => {
     return addressRegEx.test(address);
 }
 
+const validCity = (city) => {
+    const cityRegEx = /^[a-zA-Z\s,'-]*$/;
+    return cityRegEx.test(city);
+}
 
-export { validEmail, validName, validPassword, validPostalCode, validAddress };
+const validAge = (age) => {
+    const ageRegEx = /^[0-9]{1,3}$/;
+    return ageRegEx.test(age);
+}
+
+const validPhone = (phone) => {
+    const phoneRegEx = /^[0-9]{10}$/;
+    return phoneRegEx.test(phone);
+}
+
+export { validEmail, validName, validPassword, validPostalCode, validAddress, validCity, validAge, validPhone };
