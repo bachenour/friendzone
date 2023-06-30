@@ -45,7 +45,7 @@ export default function RegisterForm() {
 
     const checkEmail = (newEmail) => {
         if (!Validators.validEmail(newEmail)) {
-            errors.email = 'Email invalide';
+            errors.email = 'Votre adresse e-mail est invalide, votre e-mail doit contenir le caractère @ et au moins 1 caractère avant le @ et 3 caractères après le @';
             setIsEmail(false);
             //vérifier s'il n'existe pas déjà dans la base de données
         } else {
@@ -54,9 +54,18 @@ export default function RegisterForm() {
         }
     }
 
+    const checkCity = (city) =>{
+        if (!Validators.validCity(city)) {
+            errors.city = 'Votre ville est invalide, votre ville doit contenir au moins 3 caractères';
+            setIsCity(false);
+        } else {
+            errors.city = '';
+            setIsCity(true);
+        }
+    }
     const checkFirstName = (newFirstName) => {
         if (!Validators.validName(newFirstName)) {
-            errors.firstName = 'Prénom invalide';
+            errors.firstName = "Le prénom que vous avez saisi est invalide, veuillez ne saisir que des lettres s'il vous plaît";
             setIsFirstName(false);
         } else {
             errors.firstName = '';
@@ -66,7 +75,7 @@ export default function RegisterForm() {
 
     const checkLastName = (newLastName) => {
         if (!Validators.validName(newLastName)) {
-            errors.lastName = 'Nom invalide';
+            errors.lastName = "Le nom que vous avez saisi saisi est invalide, veuillez ne saisir que des lettres s'il vous plaît";
             setIsLastName(false);
         } else {
             errors.lastName = '';
@@ -97,7 +106,7 @@ export default function RegisterForm() {
 
     const checkPostalCode = (newPostalCode) => {
         if (!Validators.validPostalCode(newPostalCode)) {
-            errors.postalCode = 'Code postal invalide';
+            errors.postalCode = 'Votre code postal est invalide, celui-ci doit-être composé de 5 chiffres';
             setIsPostalCode(false);
         } else {
             errors.postalCode = '';
@@ -122,6 +131,26 @@ export default function RegisterForm() {
         } else {
             errors.confirmPassword = '';
             setIsConfirmPassword(true);
+        }
+    }
+    
+    const checkAge = (newAge) => {
+        if (!Validators.validAge(newAge)) {
+            errors.age = 'Votre âge est invalide, vous devez avoir entre 18 et 99 ans';
+            setIsAge(false);
+        } else {
+            errors.age = '';
+            setIsAge(true);
+        }
+    }
+
+    const checkPhone = (phone) => {
+        if (!Validators.validPhone(phone)) {
+            errors.phone = 'Votre numéro de téléphone est invalide, celui-ci doit-être composé de 10 chiffres';
+            setIsPhone(false);
+        } else {
+            errors.phone = '';
+            setIsPhone(true);
         }
     }
     
@@ -157,10 +186,10 @@ export default function RegisterForm() {
         return !!(firstName && lastName)
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
-        axios.post('http://127.0.0.1:3030/users/signup', {
+        await axios.post('http://127.0.0.1:3030/users/signup', {
             name: firstName,
             full_name: lastName,
             pseudo: pseudo,
@@ -178,7 +207,6 @@ export default function RegisterForm() {
                 if(response.data === 'success') {
                     resetForm();
                 }
-                else errors.push(response.data);
             })
     };
 
@@ -223,7 +251,7 @@ export default function RegisterForm() {
                             </div>
                         </div>
                         <div className="message-row">
-                            <div className="bubble-right">
+                            <div className={ errors.lastName ? "bubble-right error-bubble-right" : "bubble-right"}>
                                 <input
                                     placeholder="Votre nom"
                                     type="text"
@@ -238,7 +266,9 @@ export default function RegisterForm() {
                             </div>
                             <img src={IconRight} alt="right icon" className="icon-right"/>
                         </div>
-
+                        {!isLastName && errors.lastName && (
+                            <ErrorsComponent error={errors.lastName} />
+                        )}
                         {isLastName && (
                             <>
                                 <div className="message-row">
@@ -248,7 +278,7 @@ export default function RegisterForm() {
                                     </div>
                                 </div>
                                 <div className="message-row">
-                                    <div className="bubble-right">
+                                    <div className={ errors.email ? "bubble-right error-bubble-right" : "bubble-right"}>
                                         <input
                                             placeholder="Votre email"
                                             type="email"
@@ -263,7 +293,9 @@ export default function RegisterForm() {
                                     </div>
                                     <img src={IconRight} alt="right icon" className="icon-right"/>
                                 </div>
-
+                                {!isEmail && errors.email && (
+                                    <ErrorsComponent error={errors.email} />
+                                )}
                                 {isEmail && (
                                     <>
                                         <div className="message-row">
@@ -273,22 +305,25 @@ export default function RegisterForm() {
                                             </div>
                                         </div>
                                         <div className="message-row">
-                                            <div className="bubble-right">
+                                            <div className={ errors.age ? "bubble-right error-bubble-right" : "bubble-right"}>
                                                 <input
                                                     placeholder="Votre age"
                                                     type="number"
                                                     id="age"
                                                     value={age}
                                                     onChange={(e) => {
-                                                        setAge(e.target.value)
+                                                        setAge(e.target.value);
+                                                        checkAge(e.target.value);
                                                     }}
                                                     required
                                                 />
                                             </div>
                                             <img src={IconRight} alt="right icon" className="icon-right"/>
                                         </div>
-
-                                        {age && age !== 0 && (
+                                        {!isAge && errors.age && (
+                                            <ErrorsComponent error={errors.age} />
+                                        )}
+                                        {isAge && (
                                             <>
                                                 <div className="message-row">
                                                     <img src={IconLeft} alt="left icon" className="icon-left"/>
@@ -297,7 +332,7 @@ export default function RegisterForm() {
                                                     </div>
                                                 </div>
                                                 <div className="message-row">
-                                                    <div className="bubble-right">
+                                                    <div className={ errors.sex ? "bubble-right error-bubble-right" : "bubble-right"}>
                                                         <Select 
                                                             placeholder="Votre sexe"
                                                             options={sexEnum} 
@@ -307,7 +342,9 @@ export default function RegisterForm() {
                                                     </div>
                                                     <img src={IconRight} alt="right icon" className="icon-right"/>
                                                 </div>
-                                                
+                                                {!isSex && errors.sex && (
+                                                    <ErrorsComponent error={errors.sex} />
+                                                )}
                                                 {sex && (
                                                     <>
                                                         <div className="message-row">
@@ -317,7 +354,7 @@ export default function RegisterForm() {
                                                             </div>
                                                         </div>
                                                         <div className="message-row">
-                                                            <div className="bubble-right">
+                                                            <div className={ errors.pseudo ? "bubble-right error-bubble-right" : "bubble-right"}>
                                                                 <input
                                                                     placeholder={'Votre pseudo'}
                                                                     type="text"
@@ -332,7 +369,9 @@ export default function RegisterForm() {
                                                             </div>
                                                             <img src={IconRight} alt="right icon" className="icon-right"/>
                                                         </div>
-
+                                                        {!isPseudo && errors.pseudo && (
+                                                            <ErrorsComponent error={errors.pseudo} />
+                                                        )}
                                                         {isPseudo && (
                                                             <>
                                                                 <div className="message-row">
@@ -343,7 +382,7 @@ export default function RegisterForm() {
                                                                     </div>
                                                                 </div>
                                                                 <div className="message-row">
-                                                                    <div className="bubble-right">
+                                                                    <div className={ errors.address ? "bubble-right error-bubble-right" : "bubble-right"}>
                                                                         <input
                                                                             placeholder={'Votre adresse'}
                                                                             type="text"
@@ -359,6 +398,9 @@ export default function RegisterForm() {
                                                                     <img src={IconRight} alt="right icon"
                                                                          className="icon-right"/>
                                                                 </div>
+                                                                {!isAddress && errors.address && (
+                                                                    <ErrorsComponent error={errors.address} />
+                                                                )}
                                                                 {isAddress && (
                                                                     <>
                                                                         <div className="message-row">
@@ -370,7 +412,7 @@ export default function RegisterForm() {
                                                                             </div>
                                                                         </div>
                                                                         <div className="message-row">
-                                                                            <div className="bubble-right">
+                                                                            <div className={ errors.postalCode ? "bubble-right error-bubble-right" : "bubble-right"}>
                                                                                 <input
                                                                                     placeholder={'Code postal'}
                                                                                     type="text"
@@ -386,8 +428,9 @@ export default function RegisterForm() {
                                                                             <img src={IconRight} alt="right icon"
                                                                                  className="icon-right"/>
                                                                         </div>
-
-
+                                                                        {!isPostalCode && errors.postalCode && (
+                                                                            <ErrorsComponent error={errors.postalCode} />
+                                                                        )}
                                                                         {isPostalCode && (
                                                                             <>
                                                                                 <div className="message-row">
@@ -399,20 +442,26 @@ export default function RegisterForm() {
                                                                                     </div>
                                                                                 </div>
                                                                                 <div className="message-row">
-                                                                                    <div className="bubble-right">
+                                                                                    <div className={ errors.city ? "bubble-right error-bubble-right" : "bubble-right"}>
                                                                                         <input
                                                                                             placeholder={'Ville'}
                                                                                             type="text"
                                                                                             id="city"
                                                                                             value={city}
-                                                                                            onChange={(e) => setCity(e.target.value)}
+                                                                                            onChange={(e) => {
+                                                                                                setCity(e.target.value);
+                                                                                                checkCity(e.target.value);
+                                                                                            }}
                                                                                             required
                                                                                         />
                                                                                     </div>
                                                                                     <img src={IconRight} alt="right icon"
                                                                                          className="icon-right"/>
                                                                                 </div>
-                                                                                {city && (
+                                                                                {!isCity && errors.city && (
+                                                                                    <ErrorsComponent error={errors.city} />
+                                                                                )}
+                                                                                {isCity && (
                                                                                     <>
                                                                                         <div className="message-row">
                                                                                             <img src={IconLeft} alt="left icon"
@@ -422,21 +471,26 @@ export default function RegisterForm() {
                                                                                             </div>
                                                                                         </div>
                                                                                         <div className="message-row">
-                                                                                            <div className="bubble-right">
+                                                                                            <div className={ errors.phone ? "bubble-right error-bubble-right" : "bubble-right"}>
                                                                                                 <input
                                                                                                     placeholder={'Numéro de téléphone'}
                                                                                                     type="text"
                                                                                                     id="phone"
                                                                                                     value={phone}
-                                                                                                    onChange={(e) => setPhone(e.target.value)}
+                                                                                                    onChange={(e) => {
+                                                                                                        setPhone(e.target.value);
+                                                                                                        checkPhone(e.target.value);
+                                                                                                    }}
                                                                                                     required
                                                                                                 />
                                                                                             </div>
                                                                                             <img src={IconRight} alt="right icon"
                                                                                                  className="icon-right"/>
                                                                                         </div>
-
-                                                                                        {phone && (
+                                                                                        {!isPhone && errors.phone && (
+                                                                                            <ErrorsComponent error={errors.phone} />
+                                                                                        )}
+                                                                                        {isPhone && (
                                                                                             <>
                                                                                                 <div className="message-row">
                                                                                                     <img src={IconLeft} alt="left icon"
@@ -448,7 +502,7 @@ export default function RegisterForm() {
                                                                                                     </div>
                                                                                                 </div>
                                                                                                 <div className="message-row">
-                                                                                                    <div className="bubble-right">
+                                                                                                    <div className={ errors.password ? "bubble-right error-bubble-right" : "bubble-right"}>
                                                                                                         <input
                                                                                                             placeholder={'Votre mot de passe'}
                                                                                                             type="password"
@@ -465,7 +519,9 @@ export default function RegisterForm() {
                                                                                                          alt="right icon"
                                                                                                          className="icon-right"/>
                                                                                                 </div>
-
+                                                                                                {!isPassword && errors.password && (
+                                                                                                    <ErrorsComponent error={errors.password} />
+                                                                                                )}
                                                                                                 {isPassword && (
                                                                                                     <>
                                                                                                         <div className="message-row">
@@ -482,7 +538,7 @@ export default function RegisterForm() {
                                                                                                         </div>
                                                                                                         <div className="message-row">
                                                                                                             <div
-                                                                                                                className="bubble-right">
+                                                                                                                className={ errors.confirmPassword ? "bubble-right error-bubble-right" : "bubble-right"}>
                                                                                                                 <input
                                                                                                                     placeholder={'Votre mot de passe'}
                                                                                                                     type="password"
@@ -499,6 +555,9 @@ export default function RegisterForm() {
                                                                                                                  alt="right icon"
                                                                                                                  className="icon-right"/>
                                                                                                         </div>
+                                                                                                        {!isConfirmPassword && errors.confirmPassword && (
+                                                                                                            <ErrorsComponent error={errors.confirmPassword} />
+                                                                                                        )}
                                                                                                         {isConfirmPassword && (
                                                                                                             <button
                                                                                                                 className={'submit-register'}
