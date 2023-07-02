@@ -1,10 +1,14 @@
 import SearchActivity from "./SearchActivity";
 import MemoryActivity from "./MemoryActivity"
+import PopUpActivity from "./PopUpActivity"
 
 function Home(){
     return(
         <>
-            <SearchActivity/>
+            <PopUpActivity />
+            <SearchActivity />
+            <CarrouselCategorie />
+            <CardCategorie />
             <MemoryActivity />
         </>
     )
