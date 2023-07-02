@@ -1,6 +1,4 @@
 import "../styles/SearchActivity.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons/faMagnifyingGlass";
 import React, { useEffect } from "react";
 import axios from "axios";
 import { Autocomplete, Box, TextField } from "@mui/material";
