@@ -27,7 +27,7 @@ export default function Posts() {
     return (
     <>
         {posts.map(({
-            _id,
+            id,
             title,
             content,
             creationDate,
@@ -37,7 +37,7 @@ export default function Posts() {
             return (
                 <Post
                     key={uuid()}
-                    _id={_id}
+                    id={id}
                     title={title}
                     content={content}
                     creationDate={creationDate}

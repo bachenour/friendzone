@@ -1,4 +1,4 @@
-import {Avatar, Box, Divider, Grid, IconButton, Typography} from "@mui/material";
+import {Avatar, Divider, Grid, IconButton, Typography} from "@mui/material";
 import React, {useState} from "react";
 import {
     ChatBubbleOutlineOutlined,
@@ -7,19 +7,14 @@ import {
     MoreHorizOutlined,
     ShareOutlined
 } from "@mui/icons-material";
-import FlexBetween from "../Utils/FlexBetween";
-import WidgetWrapper from "../Utils/WidgetWrapper";
-import uuid from "react-uuid";
-import {Link} from "react-router-dom";
 import moment from "moment";
 import Comments from "../Comments/Comments";
-import Home from "../Home";
 import "./post.scss";
 import {Stack} from "@mui/system";
 
 
 function Post({
-    _id, 
+    id, 
     title, 
     content, 
     creationDate,
@@ -45,7 +40,7 @@ function Post({
                             </Typography>
                         </Grid>
                         <MoreHorizOutlined className="outlineMenu" onClick={() => setMenuOpen(!menuOpen)} />
-                        {menuOpen && users.pseudo === "DyFlow" && (
+                        {menuOpen && users.pseudo === "Phily Flingo" && (
                             <button>delete</button>
                         )}
                         
@@ -75,7 +70,7 @@ function Post({
                         </span>
                     </IconButton>
                 </div>
-                {commentOpen && <Comments comments={comments} />}
+                {commentOpen && <Comments comments={comments} postId={id} />}
             </Grid>
         </div>
     );
