@@ -8,8 +8,8 @@ export class OpinionDto {
             try {
                 if (!req.body.text) throw new HttpException(400, 'erreur: champ vide');
                 if (req.body.post_id && req.body.activity_id) throw new HttpException(400, 'erreur: opinion sur post ou activité');
+                if (!req.body.post_id && !req.body.activity_id) throw new HttpException(400, 'erreur: pas de post ou d\'activité');
                 
-                console.log(req.body.userPayload);
 
                 const data = new Opinion();
                 data.post = req.body.post_id ?? null
