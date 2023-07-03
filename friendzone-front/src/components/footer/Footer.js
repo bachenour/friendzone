@@ -1,3 +1,5 @@
+import './Footer.scss';
+
 function Footer(){
     return(
         <footer className="footer mt-auto py-3 bg-transparent">

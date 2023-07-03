@@ -1,12 +1,13 @@
 import React, {useState} from 'react';
 import './RegisterForm.scss';
-import IconLeft from './icons8-personne-homme-64.png'; // Remplacez par le chemin de votre icône pour la bulle gauche
-import IconRight from './icons8-personne-homme-64_1.png'; // Remplacez par le chemin de votre icône pour la bulle droite
+import IconLeft from './icons8-personne-homme-64.png';
+import IconRight from './icons8-personne-homme-64_1.png';
 import '../../../validators/validators';
 import * as Validators from '../../../validators/validators';
 import Select from 'react-select';
 import ErrorsComponent from '../../authentication/errors/ErrorsComponent';
 import axios from 'axios';
+import { openSession} from "../utils";
 
 export default function RegisterForm() {
     const sexEnum = [
@@ -47,7 +48,6 @@ export default function RegisterForm() {
         if (!Validators.validEmail(newEmail)) {
             errors.email = 'Votre adresse e-mail est invalide, votre e-mail doit contenir le caractère @ et au moins 1 caractère avant le @ et 3 caractères après le @';
             setIsEmail(false);
-            //vérifier s'il n'existe pas déjà dans la base de données
         } else {
             errors.email = '';
             setIsEmail(true);
@@ -204,8 +204,16 @@ export default function RegisterForm() {
         })
             .then((response) => {
                 setResponse(response.data);
-                if(response.data === 'success') {
+                if(response.status === 200) {
                     resetForm();
+                    openSession({
+                        'firstName': firstName,
+                        'username': pseudo,
+                        'email': email,
+                        'sex': sex,
+                        'age': age,
+                        'city': city
+                    });
                 }
             })
     };

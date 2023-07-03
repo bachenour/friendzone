@@ -16,9 +16,11 @@ function Nav() {
                 <div className="col-2 text-center">
                     <img className="logoFriendZone mx-auto d-block" src={logo}/>
                 </div>
-                <div className="col-2 text-end">
-                    <a><FontAwesomeIcon icon={faUser} /> Hakim</a>
-                </div>
+                {sessionStorage.getItem('firstName') && 
+                    <div className="col-2 text-end">
+                        <a><FontAwesomeIcon icon={faUser} />{sessionStorage.getItem('firstName')}</a>
+                    </div> 
+                }
             </nav>
         </div>
     )
