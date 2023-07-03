@@ -24,7 +24,10 @@ class PostService {
                 .select('post')
                 .addSelect('users.pseudo')
                 .leftJoin('post.users', 'users')
-                .leftJoinAndSelect('post.opinion','opinion').getMany();
+                .leftJoinAndSelect('post.opinion','opinion')
+                .where('post.creationDate < :date', {date: new Date()})
+                .orderBy('post.creationDate', 'DESC')
+                .getMany();
         } catch (e) {
             return e;
         }
