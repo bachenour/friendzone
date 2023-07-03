@@ -2,6 +2,7 @@ import {Entity, PrimaryGeneratedColumn, Column, OneToMany} from "typeorm"
 import {Post} from "./Post";
 import {Activity} from "./Activity";
 import {Users_activity} from "./Users_activity";
+import {Like} from "./Like";
 
 @Entity("users")
 export class User {
@@ -61,5 +62,8 @@ export class User {
 
     @OneToMany(() => Users_activity, users_activity => users_activity.activity)
     users_activity: Users_activity[]
+
+    @OneToMany(() => Like, like => like.user)
+    likes: Like[]
 
 }
