@@ -6,3 +6,9 @@ export const openSession = (data) => {
     sessionStorage.setItem('age', data.age);
     sessionStorage.setItem('city', data.city);
 }
+
+export const closeSession = () => {
+    sessionStorage.clear();
+    console.log('caca');
+    window.location.reload();
+}

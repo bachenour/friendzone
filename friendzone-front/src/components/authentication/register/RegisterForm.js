@@ -7,7 +7,7 @@ import * as Validators from '../../../validators/validators';
 import Select from 'react-select';
 import ErrorsComponent from '../../authentication/errors/ErrorsComponent';
 import axios from 'axios';
-import { openSession} from "../utils";
+import {closeSession, openSession} from "../utils";
 
 export default function RegisterForm() {
     const sexEnum = [
@@ -136,7 +136,7 @@ export default function RegisterForm() {
     
     const checkAge = (newAge) => {
         if (!Validators.validAge(newAge)) {
-            errors.age = 'Votre âge est invalide, vous devez avoir entre 18 et 99 ans';
+            errors.age = 'Votre âge est invalide, vous devez avoir minimum 18 ans';
             setIsAge(false);
         } else {
             errors.age = '';
@@ -206,6 +206,7 @@ export default function RegisterForm() {
                 setResponse(response.data);
                 if(response.status === 200) {
                     resetForm();
+                    closeSession();
                     openSession({
                         'firstName': firstName,
                         'username': pseudo,
@@ -214,6 +215,7 @@ export default function RegisterForm() {
                         'age': age,
                         'city': city
                     });
+                    window.location.reload();
                 }
             })
     };
@@ -248,7 +250,7 @@ export default function RegisterForm() {
                     <img src={IconRight} alt="right icon" className="icon-right"/>
                 </div>
                 {errors.firstName && (
-                    <ErrorsComponent error={errors.firstName} />
+                    <ErrorsComponent error={ errors.firstName } />
                 )}
                 {isFirstName && (
                     <>
