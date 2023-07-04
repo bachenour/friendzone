@@ -24,14 +24,15 @@ const validAddress = (address) => {
 }
 
 const validCity = (city) => {
-    const cityRegEx = /^[a-zA-Z\s,'-]*$/;
+    const cityRegEx = /^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/;
     return cityRegEx.test(city);
 }
 
 const validAge = (age) => {
-    const ageRegEx = /^[0-9]{1,3}$/;
+    const ageRegEx = /^(1[8-9]|[2-9][0-9]|100)$/;
     return ageRegEx.test(age);
-}
+};
+
 
 const validPhone = (phone) => {
     const phoneRegEx = /^[0-9]{10}$/;
