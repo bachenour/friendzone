@@ -149,7 +149,8 @@ export default function BasicSpeedDial() {
                 <TextField className="formField" name='adresse' label="Adresse" fullWidth required />
                 <TextField className="formField" name='codePostal' label="Code postal" fullWidth required />
                 <TextField className="formField" name='ville' label="Ville" fullWidth required />
-                <TextField className="formField" name='dateCommencement' label="Date de commencement" type="date" fullWidth required />
+                <TextField className="formField" name='dateCommencement' type="date" fullWidth required />
+                <InputLabel id="demo-controlled-open-select-label">Date de commencement</InputLabel>
                 <TextField className="formField" name='nbMaxPersonnes' label="Nombre maximum de personnes" type="number" fullWidth required />
             <Button type="submit" variant="contained">
               Créer
