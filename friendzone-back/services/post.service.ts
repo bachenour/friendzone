@@ -17,7 +17,7 @@ class PostService {
         }
     }
 
-    static async getposts() {
+    static async getPosts() {
         try {
             return await AppDataSource.getRepository(Post)
                 .createQueryBuilder('post')

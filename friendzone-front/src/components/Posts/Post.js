@@ -39,11 +39,6 @@ function Post({
                                 <span className="date"> {moment(creationDate).fromNow()}</span>
                             </Typography>
                         </Grid>
-                        <MoreHorizOutlined className="outlineMenu" onClick={() => setMenuOpen(!menuOpen)} />
-                        {menuOpen && users.pseudo === "Phily Flingo" && (
-                            <button>delete</button>
-                        )}
-                        
                     </Stack>
                 </Grid>
                 <div className="content">

@@ -3,6 +3,7 @@ import axios from "axios";
 import Post from "./Post";
 import uuid from "react-uuid";
 import "./posts.scss";
+import {Box, Typography} from "@mui/material";
 
 
 
@@ -18,6 +19,7 @@ export default function Posts() {
                     "Cache-Control": "no-cache"}
                 })
                 .then(response => {
+                    console.log(response.data.posts);
                     setPosts(response.data.posts);
                 })
         }
@@ -26,6 +28,19 @@ export default function Posts() {
     
     return (
     <>
+        <Box
+            className="friendplace-title"
+            sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
+                marginTop: "3rem",
+            }}
+        >
+            <h1 className="title-fp">La FriendPlace</h1>
+            <h2 className="subtitle-fp" variant="h2" >Qui vous relie</h2>
+        </Box>
         {posts.map(({
             id,
             title,
