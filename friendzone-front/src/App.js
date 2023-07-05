@@ -7,12 +7,14 @@ import './styles/App.scss';
 import Footer from "./components/Footer";
 import Authentication from "./components/authentication/AuthenticationComponent";
 import Posts from "./components/Posts/Posts";
+import PopUpActivity from "./components/PopUpActivity";
 
 
 function App() {
   return (
     <>
       <Nav />
+      <PopUpActivity />
         <div className="container blur-background">
           <div className="containing">
             <Routes>
@@ -21,6 +23,7 @@ function App() {
               <Route path="/authentification" element={<Authentication />} />
               <Route path="/friendplace" element={<Posts />} />
             </Routes>
+            
           </div>
         </div>
       <Footer/>

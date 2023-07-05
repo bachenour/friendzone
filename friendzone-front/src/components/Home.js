@@ -1,13 +1,12 @@
 import SearchActivity from "./SearchActivity";
-import MemoryActivity from "./MemoryActivity"
 import PopUpActivity from "./PopUpActivity"
-import CardCategorie from "./CardCategorie";
 import CarrouselCategorie from "./CarrouselCategorie";
+import CardCategorie from "./CardCategorie";
+import MemoryActivity from "./MemoryActivity";
 
 function Home(){
     return(
         <>
-            <PopUpActivity />
             <SearchActivity />
             <CarrouselCategorie />
             <CardCategorie />

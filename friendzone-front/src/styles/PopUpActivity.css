@@ -1,5 +1,6 @@
 .formContainer .formField {
     margin-top: 30px;
+    height: auto;
   }
 
 #selectCategory {
