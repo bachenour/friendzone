@@ -13,5 +13,6 @@
 }
 
 .back-popup{
-    z-index: -2;
+    left: 80%;
+    bottom: 30px;
 }
