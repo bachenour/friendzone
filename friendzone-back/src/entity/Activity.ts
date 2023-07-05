@@ -1,6 +1,8 @@
-import {Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
+import {Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn} from "typeorm";
 import {User} from "./User";
 import {Category} from "./Category";
+import {Users_activity} from "./Users_activity";
+import {Opinion} from "./Opinion";
 
 @Entity("activity")
 
@@ -32,6 +34,13 @@ export class Activity {
     category: Category
 
     @ManyToOne(() => User, user => user.activity, {nullable: false})
-    @JoinColumn({name:"users_id"})
-    users: User
+    @JoinColumn({name:"author_id"})
+    user: User
+
+    @OneToMany(() => Users_activity, users_activity => users_activity.activity)
+    users_activity: Users_activity[]
+
+    @OneToMany(() => Opinion, opinion => opinion.activity)
+    opinion: Opinion[]
+
 }

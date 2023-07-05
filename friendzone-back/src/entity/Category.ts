@@ -17,10 +17,4 @@ export class Category {
 
     @OneToMany(() => Activity, activity => activity.category)
     activity: Activity[]
-
-    @OneToMany(() => Opinion, opinion => opinion.category)
-    opinion: Opinion[]
-
-    @OneToMany(() => Users_activity, users_activity => users_activity.category)
-    users_activity: Users_activity[]
 }

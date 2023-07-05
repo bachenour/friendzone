@@ -1,13 +1,13 @@
 .swiper {
   margin-top: 80px;
-  width: 65%;
+  width: 85%;
   height: 20%;
 }
 
 .swiper-slide {
   text-align: center;
   font-size: 18px;
-  background-color: #E5E5E5;
+  background-color: #ffffff00;
   /* Center slide text vertically */
   display: flex;
   justify-content: space-between;
@@ -17,13 +17,25 @@
 
 .swiper-slide img {
   display: block;
-  width: 90px;
-  height: 90px;
+  width: 150px;
+  height: 150px;
   object-fit: cover;
-  border-radius: 30%;
+  border-radius: 20%;
 }
   
 
 .swiper-slide p {
+  margin-top: 15px;
     text-align: center;
+    color: white;
+  }
+
+
+
+  .swiper-button-prev{
+    color: #ffffff;
+  }
+
+  .swiper-button-next{
+    color: #ffffff;
   }

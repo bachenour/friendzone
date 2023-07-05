@@ -6,18 +6,25 @@ import Home from "./components/Home";
 import './styles/App.scss';
 import Footer from "./components/footer/Footer";
 import Authentication from "./components/authentication/AuthenticationComponent";
+import Posts from "./components/Posts/Posts";
+import PopUpActivity from "./components/PopUpActivity";
+
 
 function App() {
   return (
     <>
       <Nav />
+      <PopUpActivity />
         <div className="container blur-background">
           <div className="containing">
             <Routes>
               //ajouter les routes ici
               <Route path="/" element={<Home />} />
               <Route path="/login" element={<Authentication />} />
+              <Route path="/authentification" element={<Authentication />} />
+              <Route path="/friendplace" element={<Posts />} />
             </Routes>
+            
           </div>
         </div>
       <Footer/>

@@ -23,17 +23,36 @@ export class ActivityDto {
             data.address = req.body.address;
             data.city = req.body.city;
             data.postal_code = req.body.postal_code;
+            data.user = req.body.userPayload.id;
             AppDataSource.manager.findOne(Category, {where: {id: req.body.category_id}}).then((category) => {
                 data.category = category;
-                req.body = data;
-            });
-            AppDataSource.manager.findOne(User, {where: {id: req.body.users_id}}).then((user) => {
-                data.users = user;
                 req.body = data;
                 next();
             });
 
         }catch (e) {
+            next(e);
+        }
+    }
+    
+    joinActivity = (req: Request, res: Response, next: NextFunction) => {
+        try {
+            if (!req.params.id) throw new HttpException(400, 'erreur: pas d\'id d\'activité');
+            let activityId = parseInt(req.params.id);
+            let userEmail = req.body.userPayload.email;
+            
+            AppDataSource.manager.findOne(Activity, {where: {id: activityId}}).then((activity) => {
+                if (activity.users_activity !== undefined && activity.users_activity.length >= activity.max_person) throw new HttpException(400, 'erreur: activité pleine');
+                req.body.activity = activity;
+            });
+            
+            AppDataSource.manager.findOne(User, {where: {email: userEmail}}).then((user) => {
+                req.body.user = user;
+                next();
+            });
+
+            //get User from jwt Token
+        } catch (e) {
             next(e);
         }
     }

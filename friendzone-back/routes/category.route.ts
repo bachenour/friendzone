@@ -2,9 +2,11 @@ import {Routes} from "../interfaces/routes.interface";
 import {Router} from "express";
 import CategoryController from "../controllers/category.controller";
 import {CategoryDto} from "../dto/category.dto";
+import {JwtService} from "../services/jwt.service";
 
-const categoryControl = new CategoryController();
+const categoryController = new CategoryController();
 const categoryDto = new CategoryDto();
+const authMiddleware = new JwtService();
 
 export class CategoryRoute implements Routes {
     public path = '/category';
@@ -15,10 +17,9 @@ export class CategoryRoute implements Routes {
     }
 
     private initializeRoutes() {
-        this.router.post(`${this.path}/addCategory`,  categoryDto.addCategory, categoryControl.addCategory);
-        this.router.get(`${this.path}/getCategories`, categoryControl.getCategories);
-        this.router.put(`${this.path}/:id`, categoryControl.updateCategory);
-        this.router.delete(`${this.path}/:id`, categoryControl.deleteCategoryById);
-        this.router.post(`${this.path}/script/addCategory`, categoryControl.scriptAddCategory);
+        this.router.post(`${this.path}/addCategory`, authMiddleware.verify,   categoryDto.addCategory, categoryController.addCategory);
+        this.router.get(`${this.path}/getCategories`, categoryController.getCategories);
+        this.router.put(`${this.path}/:id`, authMiddleware.verify, categoryController.updateCategory);
+        this.router.delete(`${this.path}/:id`, authMiddleware.verify,  categoryController.deleteCategoryById);
     }
 }

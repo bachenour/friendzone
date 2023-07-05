@@ -1,14 +1,119 @@
+ .bar{    
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    width:550px;
+    background:white;
+    box-shadow:0 0 5px hsl(0 0% 78%);
+    height:80px;
+    border-radius:100vw;
+    font-size:0.6rem;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 150px;
+    font-size: 1em;
+    font-family: 'Roboto', sans-serif;
+  }
+  
+  .bar div{
+    border-radius:inherit;
+    padding:0.4rem 1rem;
+    transition:background 250ms ease;
+  }
+  
+  .bar div:hover{
+    background:hsl(0 0% 94%);
+  }
+  
+
+  .guests, .check-out{
+    width:50%;
+  }
+  
+  input[type="text"]{
+    background:none;
+    border:none;
+  }
+  
+  input[type="text"]:focus{
+    outline:none;
+  }
+  
+  ::placeholder{
+    font-size:0.75rem;
+  }
+  
+  .guests{
+    position: relative;  
+  }
+  .guests button{
+    position:absolute;
+    top:50%;
+    right:10px;
+    transform:translateY(-50%);
+    background:#FF385C;
+    color:white;
+    font-size:1.5rem;
+    padding:0.2rem;
+    border-radius:50%;
+    width: 45px;
+    height: 45px;
+    border: 0.1px solid #FF385C;
+  }
+  
+  .bar>div{
+    position:relative;
+  }
+  
+  
+  .bar>div::before{
+    position:absolute;
+    content:"";
+    left:0;
+    top:50%;
+    transform:translateY(-50%);
+    width:1px;
+    height:55%;
+    background:hsl(0 0% 90%);
+  }
+  
+  .bar>div:nth-of-type(1)::before{
+     background:transparent;
+  }
+  
+  
+  .bar>div:hover::before{
+    background:transparent;
+  }
+
 .searchActivity {
     display: flex;
     justify-content: center;
-    margin-top: 100px;
+    margin-top: 1%;
     text-align: center;
+    padding-top: 60px;
+}
+
+.searchBar{
+    padding-right: 20px;
+    padding-left: 20px;
 }
 
 .searchActivity input {
     font-size: 1.2rem;
 }
 
-.search__result {
+.search__results {
+    display: flex;
+    justify-content: center;
     text-align: center;
+    margin-top: 30px;
+}
+
+.search__results ul{
+    margin-left: 250px;
+    background-color: white;
+    list-style-type: none;
+    width: 250px;
+    height: 80px;
 }
