@@ -33,7 +33,16 @@ class ActivityService{
         
     static async getActivities() {
         try {
-            return await AppDataSource.manager.find(Activity);
+            return await AppDataSource.manager.getRepository(Activity)
+                .createQueryBuilder("activity")
+                .select("activity")
+                .addSelect("user.pseudo")
+                .addSelect("category.name")
+                .addSelect("category.icon")
+                .leftJoin("activity.user", "user")
+                .leftJoin("activity.category", "category")
+                .orderBy("activity.date_activity", "DESC")
+                .getMany();
         } catch (e) {
             return e;
         }
