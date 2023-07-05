@@ -22,7 +22,7 @@ class PostController {
 
     public getPosts = async (req: Request, res: Response) => {
         try {
-            const posts = await PostService.getposts();
+            const posts = await PostService.getPosts();
             res.json({ posts, message: 'Success' });
         }catch (error) {
             return error.status(404).json({ message: error.message });
