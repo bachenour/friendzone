@@ -18,7 +18,7 @@ function Comments({comments, postId}){
         }, {
             headers: {
                 "Content-Type": "application/json",
-                "x-access-token": localStorage.getItem("token") ?? "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im9tYXJAd2FubnYyLmNvbSIsInBzZXVkbyI6IlBoaWxseSBGbGluZ28iLCJpYXQiOjE2ODg1NTAwNTYsImV4cCI6MTY4ODU2MDg1Nn0.tvtWvERP17lG0N78L72DnhB3uQWWacy8DZX4ANiJkr7RILetUJNwTlIv98NauEfGDzT-E0cBswsY-gYfh5V-vvYuWrN3kzkCRqw2iNf-vdpa6SRoSrKDGAqjNASm5E8sHCMAHW1DYdSqD6fCpwWLkEbgj0YjSwGeg5UVfYMrjZCuux5vWmKCfg7si92iLQkDkXCbpM-gwkpzFmAUR2Ett6haEFaa4J_QmHe7HYLjvVixNm_hsB48u79AYjXu031lBrAZkBkMbI_ky_jXXCkJhXT4ojD5AgDd-EvrATUMF_LY-ZegsO6NFciYCDgOk1APYex_kGaOxdTZ3LwrisKrjEaFbOZI224xLOd1p6xlZc4ZVIBiDARSfEJxx17TvAsGXgDzhacXbNowPnG8Imi_H2dPyZSUBDrnajk2k2mxuKCjrjkShL_wIbkFAOUNaJJbDCo6R15oeHbmJ2Zx_sluy50c87tCN4i_80ePHPBfOw9HSgiO8HPAlIFL132Rnlxpugwz6rV8H5AIxe4OCYr-LafZc-8NTvBXsTDc8WWUe2jwVlyY4LVNZ-WlrxOU21w9WbeiK4d0WaGPZXy_BEsIwbQL0jqKv55A9sQkH9tiy2Io046S_v1BaTBXUp-B1_ZvZXdma6n595Jk0xZJdCu_L387UpbbosAnDzYROZbfr0Y",
+                "x-access-token": localStorage.getItem('token') ?? sessionStorage.getItem('token')
             },
         }).then((response) => {
             //commentList.push(response.data);

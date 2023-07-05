@@ -8,8 +8,11 @@ import Select from 'react-select';
 import ErrorsComponent from '../../authentication/errors/ErrorsComponent';
 import axios from 'axios';
 import {closeSession, openSession} from "../utils";
+import {useNavigate} from "react-router-dom";
 
 export default function RegisterForm() {
+    const navigate = useNavigate();
+
     const sexEnum = [
         { value: "homme", label: "Homme" },
         { value: "femme", label: "Femme" },
@@ -208,6 +211,7 @@ export default function RegisterForm() {
                     resetForm();
                     closeSession();
                     openSession({
+                        'token': response.data.token,
                         'firstName': firstName,
                         'username': pseudo,
                         'email': email,
@@ -215,7 +219,7 @@ export default function RegisterForm() {
                         'age': age,
                         'city': city
                     });
-                    window.location.reload();
+                    navigate('/');
                 }
             })
     };

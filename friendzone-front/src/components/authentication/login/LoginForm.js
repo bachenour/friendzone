@@ -5,8 +5,11 @@ import IconRight from './icons8-personne-homme-64_1.png'; // Remplacez par le ch
 import * as Validators from "../../../validators/validators";
 import {openSession} from "../utils";
 import axios from 'axios';
+import {useNavigate} from "react-router-dom";
 
 export default function LoginForm() {
+    const navigate = useNavigate();
+
     const [errors, setErrors] = useState([]);
     const [email, setEmail] = useState('');
     const [isEmail, setIsEmail] = useState('');
@@ -42,19 +45,14 @@ export default function LoginForm() {
         console.log('Email:', email);
         console.log('Mot de passe:', password);
         
-        await axios.get('http://127.0.0.1:3030/users/login', {
-            email: email
+        await axios.post('http://127.0.0.1:3030/users/signin', {
+            email: email,
+            password: password
         })
             .then((response) => {
-                console.log(response);
-                if (response.status === 200 && isEmail && isPassword) {
-                    if(response.data.password === password) {
-                        openSession(response.data.user);
-                        window.location.href = '/';
-                        console.log('Connexion réussie');
-                    } else {
-                        console.log('Mot de passe incorrect');
-                    }
+                if (response.status === 200) {
+                    openSession(response.data.user);
+                    navigate('/');
                 }
             }
         )
@@ -83,7 +81,10 @@ export default function LoginForm() {
                             type="email"
                             id="email"
                             value={email}
-                            onChange={(e) => {checkEmail(e.target.value);}}
+                            onChange={(e) => {
+                                setEmail(e.target.value);
+                                checkEmail(e.target.value);
+                            }}
                             required
                         />
                     </div>
@@ -112,7 +113,10 @@ export default function LoginForm() {
                                     type="password"
                                     id="password"
                                     value={password}
-                                    onChange={(e) => checkPassword(e.target.value)}
+                                    onChange={(e) => {
+                                        setPassword(e.target.value);
+                                        checkPassword(e.target.value);
+                                    }}
                                     required
                                 />
                             </div>

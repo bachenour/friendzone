@@ -1,7 +1,7 @@
 export const openSession = (data) => {
     localStorage.setItem("token", data.token);
-    sessionStorage.setItem('firstName', data.firstName);
-    sessionStorage.setItem('username', data.username);
+    sessionStorage.setItem('firstName', data.name+' '+data.full_name);
+    sessionStorage.setItem('username', data.pseudo);
     sessionStorage.setItem('email', data.email);
     sessionStorage.setItem('sex', data.sex);
     sessionStorage.setItem('age', data.age);
@@ -10,6 +10,5 @@ export const openSession = (data) => {
 
 export const closeSession = () => {
     sessionStorage.clear();
-    console.log('caca');
     window.location.reload();
 }
