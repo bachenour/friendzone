@@ -5,6 +5,7 @@ import * as React from "react";
 import uuid from "react-uuid";
 import {Box, InputLabel, Modal, TextField, Typography} from "@mui/material";
 import axios from "axios";
+import {openSession} from "../authentication/utils";
 
 const style = {
     position: 'absolute',
@@ -29,7 +30,22 @@ function ActivityCard({activity}) {
         setOpenModal(false);
     };
     const handleJoiningActivity = () => {
-        
+        axios.post('http://127.0.0.1:3030/activity/'+activity.id+'/joinActivity', {},{
+            headers: {
+                "Content-Type": "application/json",
+                "x-access-token": localStorage.getItem('token') ?? sessionStorage.getItem('token')
+            },
+        })
+            .then((response) => {
+                    alert('Vous avez rejoint l\'activité');
+                    window.location.reload();
+                }
+            )
+            .catch((error) => {
+                    console.log(error);
+                    console.log('Connexion échouée');
+                }
+            );
         console.log("Joining activity");
     }
     return(
@@ -44,7 +60,7 @@ function ActivityCard({activity}) {
                             <div className="card__header-text">
                                 <h2 className="card__title">{activity.subject} à {activity.city}</h2>
                                 <h3 className="card__auteur">{activity.category.name}</h3>
-                                <h5 className="card__auteur">Par {activity.user.pseudo} au  :  </h5>
+                                <h5 className="card__auteur">Par {activity.user.pseudo} </h5>
                                 <span className="card__status"></span>
                             </div>
                         </div>
@@ -56,7 +72,7 @@ function ActivityCard({activity}) {
             <Modal open={openModal} onClose={handleCloseModal}>
                 <Box className="formContainer" sx={style}>
                     <Typography className="formField" variant="h3" component="div" gutterBottom>
-                        Vous vous apprêtez à rejoindre l'activité {activity.subject} à {activity.city}
+                        Vous vous apprêtez à rejoindre l'activité {activity.subject} à {activity.city} de {activity.user.pseudo}
                     </Typography>
                     
                     <Typography className="formField" variant="h5" component="div" gutterBottom>
