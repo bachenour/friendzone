@@ -13,7 +13,7 @@ export default function Authentication() {
 
     return (
         <>
-            <div>
+            <div className={'authenticationContainer'}>
                 <SwitchButtonComponent onSelect={handleOptionSelect} />
             </div>
 
