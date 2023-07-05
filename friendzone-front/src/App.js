@@ -19,7 +19,7 @@ function App() {
             <Routes>
               //ajouter les routes ici
               <Route path="/" element={<Home />} />
-              <Route path="/authentification" element={<Authentication />} />
+              <Route path="/login" element={<Authentication />} />
               <Route path="/friendplace" element={<Posts />} />
             </Routes>
             

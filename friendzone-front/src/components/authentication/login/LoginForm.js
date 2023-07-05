@@ -3,31 +3,67 @@ import './LoginForm.scss';
 import IconLeft from './icons8-personne-homme-64.png'; // Remplacez par le chemin de votre icône pour la bulle gauche
 import IconRight from './icons8-personne-homme-64_1.png'; // Remplacez par le chemin de votre icône pour la bulle droite
 import * as Validators from "../../../validators/validators";
-
+import {openSession} from "../utils";
+import axios from 'axios';
 
 export default function LoginForm() {
     const [errors, setErrors] = useState([]);
     const [email, setEmail] = useState('');
     const [isEmail, setIsEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [isPassword, setIsPassword] = useState('');
+    
     
     const checkEmail = (newEmail) => {
-        newEmail ? setIsEmail(true) : setIsEmail(false);
         if(!Validators.validEmail(newEmail)) {
             errors.email = 'Email invalide';
+            setIsEmail(false);
         } else {
+            setEmail(newEmail);
+            setEmail(newEmail);
+            setIsEmail(true);
             errors.email = '';
         }
     }
+    
+    const checkPassword = (newPassword) => {
+        if(!Validators.validPassword(newPassword)) {
+            errors.password = 'Mot de passe invalide';
+            setIsPassword(false);
+        } else {
+            setPassword(newPassword);
+            setIsPassword(true);
+            errors.password = '';
+        }
+    }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         console.log('Email:', email);
         console.log('Mot de passe:', password);
         
-        //On remet à vide le formulaire
-        setEmail('');
-        setPassword('');
+        await axios.get('http://127.0.0.1:3030/users/login', {
+            email: email
+        })
+            .then((response) => {
+                console.log(response);
+                if (response.status === 200 && isEmail && isPassword) {
+                    if(response.data.password === password) {
+                        openSession(response.data.user);
+                        window.location.href = '/';
+                        console.log('Connexion réussie');
+                    } else {
+                        console.log('Mot de passe incorrect');
+                    }
+                }
+            }
+        )
+            .catch((error) => {
+                console.log(error);
+                console.log('Connexion échouée');
+                setErrors(error.response.data.errors);
+            }
+        );
     };
 
     return (
@@ -47,12 +83,20 @@ export default function LoginForm() {
                             type="email"
                             id="email"
                             value={email}
-                            onChange={(e) => {setEmail(e.target.value); checkEmail(e.target.value);}}
+                            onChange={(e) => {checkEmail(e.target.value);}}
                             required
                         />
                     </div>
                     <img src={IconRight} alt="right icon" className="icon-right" />
                 </div>
+                {errors.email &&
+                    <div className="message-row">
+                        <img src={IconLeft} alt="left icon" className="icon-left" />
+                        <div className="bubble-left">
+                            <label htmlFor="password">Cet e-mail est incorrect veuillez respecter le format suivant : nomprenom@gmail.com   </label>
+                        </div>
+                    </div>    
+                }
                 {isEmail && !errors.email &&(
                     <>
                         <div className="message-row">
@@ -68,7 +112,7 @@ export default function LoginForm() {
                                     type="password"
                                     id="password"
                                     value={password}
-                                    onChange={(e) => setPassword(e.target.value)}
+                                    onChange={(e) => checkPassword(e.target.value)}
                                     required
                                 />
                             </div>
@@ -77,9 +121,6 @@ export default function LoginForm() {
                     </>)}
                 <button className={'submit-login'} type="submit">Se connecter</button>
             </form>
-        </div>
-        <div>
-            {errors.email}
         </div>
         </>
     );
