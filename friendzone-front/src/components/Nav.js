@@ -10,7 +10,7 @@ import {closeSession} from "./authentication/utils";
 function Nav() {
     const logout = () => {
         closeSession();
-    }; 
+    };
     return (
         <div className="backgroundNav">
             <nav className="navigation row align-items-center">
@@ -33,6 +33,19 @@ function Nav() {
                         </div>
                     </>
                 }
+                {!sessionStorage.getItem('firstName')&&
+                    <>
+                        <div className="col-2 text-center">
+                            <img className="logoFriendZone mx-auto d-block" src={logo}/>
+                        </div>
+                        <div className="col-2 text-end">
+                            <span>
+                                <FontAwesomeIcon icon={faUser} onClick={logout}/>
+                                <Link to="/login"> Se connecter</Link>
+                            </span>
+                        </div>
+                    </>
+                }      
             </nav>
         </div>
     )
