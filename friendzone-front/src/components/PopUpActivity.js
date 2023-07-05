@@ -165,7 +165,7 @@ React.useEffect(() => {
   };
   
   return (
-    <Box className="back-popup" sx={{ height: 690, width: 1580, transform: 'translateZ(0px)', flexGrow: 1, position: 'fixed' }} >
+    <Box className="back-popup" sx={{ height: 50, width: 50, transform: 'translateZ(0px)', flexGrow: 1, position: 'fixed' }} >
       <SpeedDial
         ariaLabel="SpeedDial friendZone"
         sx={{ position: 'absolute', bottom: 16, zIndex: 7, right: -250 }}
