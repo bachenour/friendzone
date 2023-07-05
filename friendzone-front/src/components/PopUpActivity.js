@@ -22,7 +22,6 @@ const style = {
     border: '2px solid #000',
     boxShadow: 24,
     p: 4,
-    zIndex: 7,
   };
 
   const ITEM_HEIGHT = 48;
@@ -111,7 +110,7 @@ React.useEffect(() => {
               const response = await axios.post('http://127.0.0.1:3030/activity/addActivity', formData,
                   {
                       headers: {
-                          "x-access-token": localStorage.getItem('token') ?? "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im9tYXJAd2FubnYyLmNvbSIsInBzZXVkbyI6IlBoaWxseSBGbGluZ28iLCJpYXQiOjE2ODg1NTcyOTUsImV4cCI6MTY4ODU2ODA5NX0.Xgzg5fknUnwfufo1w2HbrHccCxvWxMNzBAdOzepB6JvdxmD4WgSL8ImROb3gH6RDcvia9eSu1ZKY-jXijdpvUTvfCvgc2ljUw-oou5J2le7vapZ0_QDgc-HS_fiiyjKR4JtWddQDg1dYTzjtwzYVxDZPle0Fpg8-tZdX1tyF4bEtPArZ_zBnHTn1WMRiwPOgXl-6l5nwUt1tZBD-2922frMSZj5-bIPM8j4vqHPJemAsV4c4DbHH99DDS3TBbaas2LmxIKLUtOuN7-ivuoWQohjhVJ2Nz5UlBCESC9voih1AQGjyLOFf4Py9QXrZqcCMAWa-62RVaRAzfCODuUGbM6ilzFPepFsx_jYCyx4u54msxFauwbQbnH0S6uI36yBaX36LCvvxhaf-5c1ZBMrnHRM2zprrd26PleQERsj7-ksFtrPXH1uYL4AsIsYkmJJ8hJXAaBwqVAi9jF4A32fzMnEx8j6G-13P_iK0P7uWxv5v67foKmJA7h1K5gR4YTofmfKSI-O2_5uf09aVMT-9egYYiO30mMKECfl6M2IGWu6ncczGj1uKf9LM69u_hXNH90YPL0q4xfpZ-O3xVb6KUA698tvY_4kZZnqmK-3vNkRn_3O6D7wuDUhfzX4m84D32VI6ar8YRGWTx7opW-t7g-wCf_YE7H7Ikz1h3lbRYwM"
+                          "x-access-token": localStorage.getItem('token') ?? sessionStorage.getItem('token')
                       }
                       });
         
@@ -141,7 +140,7 @@ React.useEffect(() => {
                 const response = await axios.post('http://127.0.0.1:3030/posts/addPost', formData,
                     {
                         headers: {
-                            "x-access-token": localStorage.getItem('token') ?? "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im9tYXJAd2FubnYyLmNvbSIsInBzZXVkbyI6IlBoaWxseSBGbGluZ28iLCJpYXQiOjE2ODg1NTcyOTUsImV4cCI6MTY4ODU2ODA5NX0.Xgzg5fknUnwfufo1w2HbrHccCxvWxMNzBAdOzepB6JvdxmD4WgSL8ImROb3gH6RDcvia9eSu1ZKY-jXijdpvUTvfCvgc2ljUw-oou5J2le7vapZ0_QDgc-HS_fiiyjKR4JtWddQDg1dYTzjtwzYVxDZPle0Fpg8-tZdX1tyF4bEtPArZ_zBnHTn1WMRiwPOgXl-6l5nwUt1tZBD-2922frMSZj5-bIPM8j4vqHPJemAsV4c4DbHH99DDS3TBbaas2LmxIKLUtOuN7-ivuoWQohjhVJ2Nz5UlBCESC9voih1AQGjyLOFf4Py9QXrZqcCMAWa-62RVaRAzfCODuUGbM6ilzFPepFsx_jYCyx4u54msxFauwbQbnH0S6uI36yBaX36LCvvxhaf-5c1ZBMrnHRM2zprrd26PleQERsj7-ksFtrPXH1uYL4AsIsYkmJJ8hJXAaBwqVAi9jF4A32fzMnEx8j6G-13P_iK0P7uWxv5v67foKmJA7h1K5gR4YTofmfKSI-O2_5uf09aVMT-9egYYiO30mMKECfl6M2IGWu6ncczGj1uKf9LM69u_hXNH90YPL0q4xfpZ-O3xVb6KUA698tvY_4kZZnqmK-3vNkRn_3O6D7wuDUhfzX4m84D32VI6ar8YRGWTx7opW-t7g-wCf_YE7H7Ikz1h3lbRYwM"
+                            "x-access-token": localStorage.getItem('token') ?? sessionStorage.getItem('token')
                         }
                     });
                 // Fermer le modal après la soumission réussie
@@ -166,7 +165,7 @@ React.useEffect(() => {
   };
   
   return (
-    <Box sx={{ height: 690, width: 1580, transform: 'translateZ(0px)', flexGrow: 1, position: 'fixed' }} >
+    <Box className="back-popup" sx={{ height: 690, width: 1580, transform: 'translateZ(0px)', flexGrow: 1, position: 'fixed' }} >
       <SpeedDial
         ariaLabel="SpeedDial friendZone"
         sx={{ position: 'absolute', bottom: 16, zIndex: 7, right: -250 }}
