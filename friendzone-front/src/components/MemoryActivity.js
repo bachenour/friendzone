@@ -44,7 +44,6 @@ function MemoryActivity() {
                                 <div className='cardMemory'>
                                         <img className='card_memory_image' src={cinemaMemory}></img>
                                     <div className='cardTxt'>
-                                        <p>Hello World</p>
                                     </div>
                                 </div>
                             </li>

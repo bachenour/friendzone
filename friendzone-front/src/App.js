@@ -6,7 +6,7 @@ import Home from "./components/Home";
 import './styles/App.scss';
 import Footer from "./components/Footer";
 import Authentication from "./components/authentication/AuthenticationComponent";
-
+import ActivityCard from "./components/activity/SingleActivity"
 
 function App() {
   return (
@@ -18,6 +18,7 @@ function App() {
               //ajouter les routes ici
               <Route path="/" element={<Home />} />
               <Route path="/authentification" element={<Authentication />} />
+              <Route path="/activité" element={<ActivityCard />} />
             </Routes>
           </div>
         </div>
