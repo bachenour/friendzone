@@ -23,12 +23,9 @@ export class ActivityDto {
             data.address = req.body.address;
             data.city = req.body.city;
             data.postal_code = req.body.postal_code;
+            data.user = req.body.userPayload.id;
             AppDataSource.manager.findOne(Category, {where: {id: req.body.category_id}}).then((category) => {
                 data.category = category;
-                req.body = data;
-            });
-            AppDataSource.manager.findOne(User, {where: {id: req.body.users_id}}).then((user) => {
-                data.user = user;
                 req.body = data;
                 next();
             });
