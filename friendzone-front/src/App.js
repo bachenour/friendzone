@@ -10,10 +10,12 @@ import Posts from "./components/Posts/Posts";
 import PopUpActivity from "./components/PopUpActivity";
 
 function App() {
+  const session = localStorage.getItem('token');
+  
   return (
     <>
       <Nav />
-      <PopUpActivity />
+      {session !== null ? <PopUpActivity /> : null}
         <div className="container blur-background">
           <div className="containing">
             <Routes>

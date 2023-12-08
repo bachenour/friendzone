@@ -10,5 +10,6 @@ export const openSession = (data) => {
 
 export const closeSession = () => {
     sessionStorage.clear();
+    localStorage.clear();
     window.location.reload();
 }
