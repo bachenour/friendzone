@@ -2,7 +2,8 @@ import {AppDataSource} from "../src/data-source";
 import {User} from "../src/entity/User";
 import {JwtService} from "./jwt.service";
 import * as bcrypt from "bcrypt";
-
+import MailerService from "./mailer.service";
+import {tr} from "@faker-js/faker";
 class UserService{
     
     static async getUserByEmail(email: any) {
@@ -71,5 +72,27 @@ class UserService{
             return e;
         }
     }   
+    
+    static async verifyEmail(data: any) {
+        try {
+            const user = await AppDataSource.manager.findOneBy(User, {email: data.email});
+            if (user) {
+                if(user.is_verified == true){
+                    throw new Error("User already verified");
+                }
+                const isMatch = await bcrypt.compare(data.token, user.email);
+                if (isMatch) {
+                    user.is_verified = true;
+                    await AppDataSource.manager.save(user);
+                    return user;
+                }
+                return user;
+            } else {
+                throw new Error("User not found");
+            }
+        } catch (e) {
+            throw new Error(e.message);
+        }
+    }
 }
 export default UserService;

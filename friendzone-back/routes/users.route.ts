@@ -22,6 +22,8 @@ export class UsersRoute implements Routes {
       this.router.get(`${this.path}/user`, usersController.getUserByEmail);
       this.router.post(`${this.path}/signup`, usersDto.signUp, usersController.signUp);
       this.router.post(`${this.path}/signin`, usersDto.signIn, usersController.signIn);
+      this.router.post(`${this.path}/send_verify_email`, usersController.sendVerifyEmail);
+      this.router.post(`${this.path}/verify_email`, usersController.verifyEmail);
       this.router.put(`${this.path}/:id`, authMiddleware.verify, usersController.updateUserData);
       this.router.delete(`${this.path}/:id`, usersController.deletsUserById);
   }
