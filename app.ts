@@ -41,6 +41,7 @@ export default class App {
         // @ts-ignore
         this.app.use(cors());
         this.app.use(hpp());
+        // @ts-ignore
         this.app.use(helmet());
         this.app.use(compression());
         this.app.use(express.json());
